@@ -1,4 +1,10 @@
-class Application extends React.Component {
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+class AnalyticsPage extends React.Component {
   render() {
     return (
       
@@ -15,4 +21,4 @@ class Application extends React.Component {
   }
 }
 
-export default Application;
+export default AnalyticsPage;
