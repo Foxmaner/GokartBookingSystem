@@ -1,8 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import Application from './components/menuPage/menuPage.js'
 
-function render() {
-  ReactDOM.render(<h2>Hello from React!</h2>, document.body);
-}
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-render();
+ReactDOM.render(<Application />, document.getElementById('root'));
