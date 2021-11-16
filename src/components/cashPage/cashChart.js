@@ -3,17 +3,17 @@ import Chart from "react-apexcharts";
 class CashChart extends React.Component{
     constructor(props) {
         super(props);
-    
+        console.log(this.props.largeKarts)
         this.state = {
             series: [{
                 name: 'Stora',
-                data: [5, 1, 2, 3, 5, 2, 1, 1, 3, 4]
+                data: this.props.largeKarts,
               }, {
                 name: 'Små',
-                data: [4, 1, 0, 2, 3, 1, 0, 1, 3, 4]
+                data: this.props.smalKarts,
               }, {
                 name: 'Dubbla',
-                data: [1, 2, 2, 0, 2, 1, 2, 1, 3, 4]
+                data: this.props.doubleKarts,
               }],
               options: {
                 chart: {
@@ -53,7 +53,7 @@ class CashChart extends React.Component{
                   },
                 },
                 xaxis: {
-                    categories: [1,2,3,4,5,6,7,8,9,10],
+                    categories: this.props.xAxis,
                     tickPlacement: 'between',
                     tickAmount: 11,
                   },
