@@ -1,8 +1,7 @@
 body {
-  /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;*/
+  background: url(./assets/appPictures/whiteIshBackground.JPG) no-repeat center center fixed;
+  background-size: cover;
+  
 }
 
 

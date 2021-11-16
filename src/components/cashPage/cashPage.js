@@ -7,7 +7,23 @@ import Col from 'react-bootstrap/Col';
 import Chart from "react-apexcharts";
 import CashChart from "./cashChart.js"
 
+import DB from "../db.js"
+
 class AnalyticsPage extends React.Component {
+
+  state = {
+    db: new DB("RaceDB"),
+    races:{}
+  };
+
+  async createRace(){
+    const res = await this.state.db.setRace(1);
+  };
+  async fetchAllRace(){
+    
+    const races = await this.state.db.getAllRaces();
+    console.log(races)
+  };
 
   render() {
     var largeKartsList = [1, 2, 3, 1, 3, 2, 4, 2, 4, 1, 1]
@@ -24,11 +40,12 @@ class AnalyticsPage extends React.Component {
         <Row className="justify-content-md-center">
           <Col>0</Col>
           <Col>0</Col>
-          <Col>0</Col>
+          <Col><Button onClick={() => { this.createRace() }}>Submit</Button></Col>
+          <Col><Button onClick={() => { this.fetchAllRace() }}>Fetch</Button></Col>
         </Row>
         <Row className="justify-content-md-center">
             <Col className="d-grid" md="8">
-              
+                
                 <CashChart largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList}/>
 
             </Col>
