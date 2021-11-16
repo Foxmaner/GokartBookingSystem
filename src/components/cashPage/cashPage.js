@@ -3,9 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import Image from 'react-bootstrap/Image';
+import Logo from '../../../src/assets/appPictures/cashIcon.png'
 import Chart from "react-apexcharts";
 import CashChart from "./cashChart.js"
+import { LinkContainer } from 'react-router-bootstrap'
 
 import DB from "../db.js"
 
@@ -32,6 +34,15 @@ class AnalyticsPage extends React.Component {
     var xAxisList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
     return (
       <Container className="app bg-light shadow-5-strong">
+        <Row className="justify-content-md-center mt-5">
+        
+            <LinkContainer to="/">
+              <Button variant="primary" size="lg">
+                Kassa
+              </Button>
+            </LinkContainer>
+        
+        </Row>
         <Row className="justify-content-md-center">
           <Col id="largeKartOutput">Stora</Col>
           <Col id="smallKartOutput">Små</Col>
