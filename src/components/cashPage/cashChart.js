@@ -11,7 +11,7 @@ class CashChart extends React.Component{
             raceToManipulateLargeKarts: 0,
             raceToManipulateSmalKarts: 0,
             raceToManipulateDoubleKarts: 0,
-            raceData:[{"raceID":"24","raceNr":"1","largeKart":"2","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"},{"raceID":"25","raceNr":"2","largeKart":"0","smallKart":"3","doubleKart":"0","raceDate":"2021-11-16 22:48:04"},{"raceID":"26","raceNr":"3","largeKart":"0","smallKart":"4","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},{"raceID":"27","raceNr":"4","largeKart":"1","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},{"raceID":"28","raceNr":"5","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:52:56"},{"raceID":"29","raceNr":"6","largeKart":"2","smallKart":"2","doubleKart":"2","raceDate":"2021-11-16 22:52:56"}],
+            raceData:[{"raceID":"24","raceNr":"1","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"},{"raceID":"25","raceNr":"2","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:48:04"},{"raceID":"26","raceNr":"3","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},],
             series: [{
                 name: 'Stora',
                 data: [0],
@@ -144,37 +144,43 @@ class CashChart extends React.Component{
       keyEventFunction(event){
         if (event.repeat) { return }
         if(event.keyCode === 27) {
-          console.log(this.state.raceData)
+          //console.log(this.state.raceData)
           this.updateChart(MyLib.createDatasets(this.state.raceData))
         }else if(event.keyCode === 37 && this.state.raceToManipulate > 0){
           this.state.raceToManipulate--
-          
-          console.log("modulateRace= " + this.state.raceToManipulate)
+          //console.log(this.state.raceData[this.state.raceToManipulate]);
+          //console.log("modulateRace= " + this.state.raceToManipulate)
+          if(typeof this.state.raceData[this.state.raceToManipulate] == 'undefined'){
+            this.state.raceData[this.state.raceToManipulate] = {"raceID":"24","raceNr":"1","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"}
+          }
         }else if(event.keyCode === 39){
           this.state.raceToManipulate++
-          
-          console.log("modulateRace= " + this.state.raceToManipulate)
-        }else if(event.keyCode === 81 && this.state.raceToManipulateLargeKarts > 0 && this.state.raceToManipulateLargeKarts <= 10){
+          //console.log(this.state.raceData[this.state.raceToManipulate]);
+          //console.log("modulateRace= " + this.state.raceToManipulate)
+          if(typeof this.state.raceData[this.state.raceToManipulate] == 'undefined'){
+            this.state.raceData[this.state.raceToManipulate] = {"raceID":"24","raceNr":"1","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"}
+          }
+        }else if(event.keyCode === 81 && this.state.raceData[this.state.raceToManipulate].largeKart > 0 && this.state.raceData[this.state.raceToManipulate].largeKart <= 10){
           this.state.raceToManipulateLargeKarts--
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"large","remove");
           console.log("modulateRace= " + this.state.raceToManipulateLargeKarts)
-        }else if(event.keyCode === 87 && this.state.raceToManipulateLargeKarts >= 0 && this.state.raceToManipulateLargeKarts < 10){
+        }else if(event.keyCode === 87 && this.state.raceData[this.state.raceToManipulate].largeKart >= 0 && this.state.raceData[this.state.raceToManipulate].largeKart < 10){
           this.state.raceToManipulateLargeKarts++
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"large","add");
           console.log("modulateRace= " + this.state.raceToManipulateLargeKarts)
-        }else if(event.keyCode === 65 && this.state.raceToManipulateSmalKarts > 0 && this.state.raceToManipulateSmalKarts <= 6){
+        }else if(event.keyCode === 65 && this.state.raceData[this.state.raceToManipulate].smallKart > 0 && this.state.raceData[this.state.raceToManipulate].smallKart <= 6){
           this.state.raceToManipulateSmalKarts--
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"smal","remove");
           console.log("modulateRace= " + this.state.raceToManipulateSmalKarts)
-        }else if(event.keyCode === 83 && this.state.raceToManipulateSmalKarts >= 0 && this.state.raceToManipulateSmalKarts < 6){
+        }else if(event.keyCode === 83 && this.state.raceData[this.state.raceToManipulate].smallKart >= 0 && this.state.raceData[this.state.raceToManipulate].smallKart < 6){
           this.state.raceToManipulateSmalKarts++
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"smal","add");
           console.log("modulateRace= " + this.state.raceToManipulateSmalKarts)
-        }else if(event.keyCode === 90 && this.state.raceToManipulateDoubleKarts > 0 && this.state.raceToManipulateDoubleKarts <= 2){
+        }else if(event.keyCode === 90 && this.state.raceData[this.state.raceToManipulate].doubleKart > 0 && this.state.raceData[this.state.raceToManipulate].doubleKart <= 2){
           this.state.raceToManipulateDoubleKarts--
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"double","remove");
           console.log("modulateRace= " + this.state.raceToManipulateDoubleKarts)
-        }else if(event.keyCode === 88 && this.state.raceToManipulateDoubleKarts >= 0 && this.state.raceToManipulateDoubleKarts < 2){
+        }else if(event.keyCode === 88 && this.state.raceData[this.state.raceToManipulate].doubleKart >= 0 && this.state.raceData[this.state.raceToManipulate].doubleKart < 2){
           this.state.raceToManipulateDoubleKarts++
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"double","add");
           console.log("modulateRace= " + this.state.raceToManipulateDoubleKarts)
