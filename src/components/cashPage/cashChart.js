@@ -7,6 +7,7 @@ class CashChart extends React.Component{
         super(props);
         //console.log(this.props.largeKarts)
         this.state = {
+            raceToManipulate: 1,
             series: [{
                 name: 'Stora',
                 data: this.props.largeKarts,
@@ -80,7 +81,11 @@ class CashChart extends React.Component{
             
             
             };
+            this.keyEventFunction = this.keyEventFunction.bind(this);
+        
       }
+      
+    
       updateChart(dataSets){
         var dataSet1 = dataSets.dataPack1;
         var dataSet2 = dataSets.dataPack2;
@@ -98,13 +103,33 @@ class CashChart extends React.Component{
             data: dataSet3,
           }]
         })
-      }
+      };
+
+
+      keyEventFunction(event){
+        var testArray = [{"raceID":"24","raceNr":"1","largeKart":"2","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"},{"raceID":"25","raceNr":"2","largeKart":"0","smallKart":"3","doubleKart":"0","raceDate":"2021-11-16 22:48:04"},{"raceID":"26","raceNr":"3","largeKart":"0","smallKart":"4","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},{"raceID":"27","raceNr":"4","largeKart":"1","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},{"raceID":"28","raceNr":"5","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:52:56"},{"raceID":"29","raceNr":"6","largeKart":"2","smallKart":"2","doubleKart":"2","raceDate":"2021-11-16 22:52:56"}]
+        if(event.keyCode === 27) {
+          this.updateChart(MyLib.createDatasets(testArray))
+        }else if(event.keyCode === 37 && this.state.raceToManipulate > 1){
+          
+          this.state.raceToManipulate--
+          console.log("modulateRace= " + this.state.raceToManipulate)
+        }else if(event.keyCode === 39){
+          this.state.raceToManipulate++
+          console.log("modulateRace= " + this.state.raceToManipulate)
+        }
+      };
+      componentDidMount(){
+        document.addEventListener("keydown", this.keyEventFunction, false);
+      };
+      componentWillUnmount(){
+        document.removeEventListener("keydown", this.keyEventFunction, false);
+      };
 
       
 
       render() {
-        {var testArray = [{"raceID":"24","raceNr":"1","largeKart":"2","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"},{"raceID":"25","raceNr":"2","largeKart":"0","smallKart":"3","doubleKart":"0","raceDate":"2021-11-16 22:48:04"},{"raceID":"26","raceNr":"3","largeKart":"0","smallKart":"4","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},{"raceID":"27","raceNr":"4","largeKart":"1","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},{"raceID":"28","raceNr":"5","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:52:56"},{"raceID":"29","raceNr":"6","largeKart":"2","smallKart":"2","doubleKart":"2","raceDate":"2021-11-16 22:52:56"}]
-        }
+
         //console.log(MyLib.createDatasets(testArray).dataPack1);
         
         //this.cooler();

@@ -15,6 +15,8 @@ import DB from "../db.js"
 
 class AnalyticsPage extends React.Component {
 
+
+
   state = {
     db: new DB("RaceDB"),
 
