@@ -7,16 +7,20 @@ class CashChart extends React.Component{
         super(props);
         //console.log(this.props.largeKarts)
         this.state = {
-            raceToManipulate: 1,
+            raceToManipulate: 0,
+            raceToManipulateLargeKarts: 0,
+            raceToManipulateSmalKarts: 0,
+            raceToManipulateDoubleKarts: 0,
+            raceData:[{"raceID":"24","raceNr":"1","largeKart":"2","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"},{"raceID":"25","raceNr":"2","largeKart":"0","smallKart":"3","doubleKart":"0","raceDate":"2021-11-16 22:48:04"},{"raceID":"26","raceNr":"3","largeKart":"0","smallKart":"4","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},{"raceID":"27","raceNr":"4","largeKart":"1","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},{"raceID":"28","raceNr":"5","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:52:56"},{"raceID":"29","raceNr":"6","largeKart":"2","smallKart":"2","doubleKart":"2","raceDate":"2021-11-16 22:52:56"}],
             series: [{
                 name: 'Stora',
-                data: this.props.largeKarts,
+                data: [0],
               }, {
                 name: 'Små',
-                data: this.props.smalKarts,
+                data: [0],
               }, {
                 name: 'Dubbla',
-                data: this.props.doubleKarts,
+                data: [0],
               }],
               options: {
                 chart: {
@@ -105,19 +109,77 @@ class CashChart extends React.Component{
         })
       };
 
-
-      keyEventFunction(event){
-        var testArray = [{"raceID":"24","raceNr":"1","largeKart":"2","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"},{"raceID":"25","raceNr":"2","largeKart":"0","smallKart":"3","doubleKart":"0","raceDate":"2021-11-16 22:48:04"},{"raceID":"26","raceNr":"3","largeKart":"0","smallKart":"4","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},{"raceID":"27","raceNr":"4","largeKart":"1","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},{"raceID":"28","raceNr":"5","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:52:56"},{"raceID":"29","raceNr":"6","largeKart":"2","smallKart":"2","doubleKart":"2","raceDate":"2021-11-16 22:52:56"}]
-        if(event.keyCode === 27) {
-          this.updateChart(MyLib.createDatasets(testArray))
-        }else if(event.keyCode === 37 && this.state.raceToManipulate > 1){
+      editRaceData(raceToManipulate,raceData,kartType,action){
+        //console.log("add to race" + raceToManipulate);
+        if(action == "add"){
+          //console.log("add to race" + raceToManipulate);
           
+          if(kartType == "large"){
+            //console.log("add to raceLarge" + raceToManipulate);
+            this.state.raceData[raceToManipulate].largeKart = '' + (parseInt(this.state.raceData[raceToManipulate].largeKart) + 1);
+           // console.log(this.state.raceData)
+          }else if(kartType == "smal"){
+           // console.log("add to raceSmal" + raceToManipulate);
+            this.state.raceData[raceToManipulate].smallKart = '' + (parseInt(this.state.raceData[raceToManipulate].smallKart) + 1);
+          }else if(kartType == "double"){
+           // console.log("add to raceDouble" + raceToManipulate);
+            this.state.raceData[raceToManipulate].doubleKart = '' + (parseInt(this.state.raceData[raceToManipulate].doubleKart) + 1);
+          }
+        }else if(action == "remove"){
+          //console.log("remove to race" + raceToManipulate);
+          if(kartType == "large"){
+            //console.log("remove to raceLarge" + raceToManipulate);
+            this.state.raceData[raceToManipulate].largeKart = '' + (parseInt(this.state.raceData[raceToManipulate].largeKart) - 1);
+            //console.log(this.state.raceData)
+          }else if(kartType == "smal"){
+            //console.log("remove to raceSmal" + raceToManipulate);
+            this.state.raceData[raceToManipulate].smallKart = '' + (parseInt(this.state.raceData[raceToManipulate].smallKart) - 1);
+          }else if(kartType == "double"){
+            //console.log("remove to raceDouble" + raceToManipulate);
+            this.state.raceData[raceToManipulate].doubleKart = '' + (parseInt(this.state.raceData[raceToManipulate].doubleKart) - 1);
+          }
+        }
+        console.log(this.state.raceData);
+      }
+      keyEventFunction(event){
+        if (event.repeat) { return }
+        if(event.keyCode === 27) {
+          console.log(this.state.raceData)
+          this.updateChart(MyLib.createDatasets(this.state.raceData))
+        }else if(event.keyCode === 37 && this.state.raceToManipulate > 0){
           this.state.raceToManipulate--
+          
           console.log("modulateRace= " + this.state.raceToManipulate)
         }else if(event.keyCode === 39){
           this.state.raceToManipulate++
+          
           console.log("modulateRace= " + this.state.raceToManipulate)
-        }
+        }else if(event.keyCode === 81 && this.state.raceToManipulateLargeKarts > 0 && this.state.raceToManipulateLargeKarts <= 10){
+          this.state.raceToManipulateLargeKarts--
+          this.editRaceData(this.state.raceToManipulate,this.state.raceData,"large","remove");
+          console.log("modulateRace= " + this.state.raceToManipulateLargeKarts)
+        }else if(event.keyCode === 87 && this.state.raceToManipulateLargeKarts >= 0 && this.state.raceToManipulateLargeKarts < 10){
+          this.state.raceToManipulateLargeKarts++
+          this.editRaceData(this.state.raceToManipulate,this.state.raceData,"large","add");
+          console.log("modulateRace= " + this.state.raceToManipulateLargeKarts)
+        }else if(event.keyCode === 65 && this.state.raceToManipulateSmalKarts > 0 && this.state.raceToManipulateSmalKarts <= 6){
+          this.state.raceToManipulateSmalKarts--
+          this.editRaceData(this.state.raceToManipulate,this.state.raceData,"smal","remove");
+          console.log("modulateRace= " + this.state.raceToManipulateSmalKarts)
+        }else if(event.keyCode === 83 && this.state.raceToManipulateSmalKarts >= 0 && this.state.raceToManipulateSmalKarts < 6){
+          this.state.raceToManipulateSmalKarts++
+          this.editRaceData(this.state.raceToManipulate,this.state.raceData,"smal","add");
+          console.log("modulateRace= " + this.state.raceToManipulateSmalKarts)
+        }else if(event.keyCode === 90 && this.state.raceToManipulateDoubleKarts > 0 && this.state.raceToManipulateDoubleKarts <= 2){
+          this.state.raceToManipulateDoubleKarts--
+          this.editRaceData(this.state.raceToManipulate,this.state.raceData,"double","remove");
+          console.log("modulateRace= " + this.state.raceToManipulateDoubleKarts)
+        }else if(event.keyCode === 88 && this.state.raceToManipulateDoubleKarts >= 0 && this.state.raceToManipulateDoubleKarts < 2){
+          this.state.raceToManipulateDoubleKarts++
+          this.editRaceData(this.state.raceToManipulate,this.state.raceData,"double","add");
+          console.log("modulateRace= " + this.state.raceToManipulateDoubleKarts)
+        };
+        this.updateChart(MyLib.createDatasets(this.state.raceData));
       };
       componentDidMount(){
         document.addEventListener("keydown", this.keyEventFunction, false);
@@ -141,9 +203,8 @@ class CashChart extends React.Component{
                     type="bar"
                     width="100%"
                     />
-                <Button onClick={() => { this.updateChart(MyLib.createDatasets(testArray)) }} variant="primary" size="lg">
-                Kassa
-              </Button>
+                
+                
                 </div>   
                     
                     
