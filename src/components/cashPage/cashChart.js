@@ -3,10 +3,13 @@ import Chart from "react-apexcharts";
 import * as MyLib from "./myChartLib.js"
 import Button from 'react-bootstrap/Button';
 class CashChart extends React.Component{
+    
     constructor(props) {
+      
         super(props);
         //console.log(this.props.largeKarts)
         this.state = {
+            timeout : 0,
             raceToManipulate: 0,
             raceToManipulateLargeKarts: 0,
             raceToManipulateSmalKarts: 0,
@@ -141,8 +144,11 @@ class CashChart extends React.Component{
         }
         console.log(this.state.raceData);
       }
+      
+
       keyEventFunction(event){
         if (event.repeat) { return }
+        clearTimeout(this.state.timeout);
         if(event.keyCode === 27) {
           //console.log(this.state.raceData)
           this.updateChart(MyLib.createDatasets(this.state.raceData))
@@ -185,7 +191,22 @@ class CashChart extends React.Component{
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"double","add");
           console.log("modulateRace= " + this.state.raceToManipulateDoubleKarts)
         };
-        this.updateChart(MyLib.createDatasets(this.state.raceData));
+
+
+        const self = this;
+        if (this.state.timeout) {
+          clearTimeout(this.state.timeout);
+        }
+   
+       this.setState({
+          timeout: setTimeout(function () {
+              console.log("BALLE");
+              self.updateChart(MyLib.createDatasets(self.state.raceData))
+            }, 1000)
+          });
+          
+        
+        
       };
       componentDidMount(){
         document.addEventListener("keydown", this.keyEventFunction, false);
