@@ -14,7 +14,7 @@ class CashChart extends React.Component{
             raceToManipulateLargeKarts: 0,
             raceToManipulateSmalKarts: 0,
             raceToManipulateDoubleKarts: 0,
-            raceData:[{"raceID":"24","raceNr":"1","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"},{"raceID":"25","raceNr":"2","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:48:04"},{"raceID":"26","raceNr":"3","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 22:48:08"},],
+            raceData:[{"raceID":"24","raceNr":"1","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"}],
             series: [{
                 name: 'Stora',
                 data: [0],
@@ -158,7 +158,7 @@ class CashChart extends React.Component{
         clearTimeout(this.state.timeout);
         if(event.keyCode === 27) {
           //console.log(this.state.raceData)
-          this.updateChart(MyLib.createDatasets(this.state.raceData))
+          //this.updateChart(MyLib.createDatasets(this.state.raceData))
         }else if(event.keyCode === 37 && this.state.raceToManipulate > 0){
           this.state.raceToManipulate--
           //console.log(this.state.raceData[this.state.raceToManipulate]);
@@ -208,8 +208,8 @@ class CashChart extends React.Component{
        this.setState({
           timeout: setTimeout(function () {
               console.log("BALLE");
-              self.updateChart(MyLib.createDatasets(self.state.raceData));
-            }, 1000)
+              self.updateChart(MyLib.createDatasets(self.state.raceData, self.state.raceToManipulate));
+            }, 500)
           });
           
         

@@ -2,9 +2,9 @@ export const Funct1 = () => {
     console.log("Fuck off and die")
 }
 
-export const createDatasets = (obj) => {
+export const createDatasets = (obj, raceToManipulate) => {
     //console.log("createDatasets() object V ");
-    //console.log(obj);
+    console.log("raceTOmanipulate" + raceToManipulate);
   
     var dataPack1 = [];
     var dataPack2 = [];
@@ -16,11 +16,23 @@ export const createDatasets = (obj) => {
       dataPack2[i] = obj[i].smallKart;
       dataPack3[i] = obj[i].doubleKart;
       raceNr[i] = parseInt(obj[i].raceNr, 10);
+    };
+    if (raceToManipulate>5){
+      console.log("TJOOO");
+      console.log(raceToManipulate-5);
+      for (var i = 1; i <= raceToManipulate-5; i++) {
+        dataPack1.shift();
+        dataPack2.shift();
+        dataPack3.shift();
+        raceNr.shift();
+        console.log("TJOOO");
+      };
     }
-  
-    if (obj.length < 11) {
-      var startNr = +raceNr[obj.length - 1] + 1;
-      for (var i = obj.length + 1; i <= 11; i++) {
+    if (raceNr.length < 11) {
+      console.log("TRUUUE")
+      var startNr = +raceNr[raceNr.length - 1] + 1;
+      for (var i = raceNr.length + 1; i <= 11; i++) {
+        console.log("TRUUUE")
         dataPack1.push(0);
         dataPack2.push(0);
         dataPack3.push(0);
@@ -28,7 +40,7 @@ export const createDatasets = (obj) => {
         console.log("Hej" + raceNr);
         startNr++;
       }
-    }
+    };
     var dataPackObject = {
         dataPack1,dataPack2,dataPack3,raceNr
     }
