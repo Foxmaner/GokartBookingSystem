@@ -7,7 +7,8 @@ class CashChart extends React.Component{
     constructor(props) {
       
         super(props);
-        //console.log(this.props.largeKarts)
+
+        //console.log("Cool"  + this.props.CurrentRaceToManipulateOutput)
         this.state = {
             timeout : 0,
             raceToManipulate: 0,
@@ -35,6 +36,16 @@ class CashChart extends React.Component{
                   },
                   zoom: {
                     enabled: false
+                  },
+                  animations: {
+                    enabled: true,
+                    dynamicAnimation: {
+                      enabled: true,
+                      speed: 100
+                    },
+                    animateGradually: {
+                      enabled: false
+                    },
                   },
                 },
                 plotOptions: {
@@ -199,7 +210,7 @@ class CashChart extends React.Component{
           console.log("modulateRace= " + this.state.raceToManipulateDoubleKarts)
         };
 
-
+        this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart);
         const self = this;
         if (this.state.timeout) {
           clearTimeout(this.state.timeout);
@@ -207,9 +218,10 @@ class CashChart extends React.Component{
    
        this.setState({
           timeout: setTimeout(function () {
-              console.log("BALLE");
+              //console.log("BALLE");
               self.updateChart(MyLib.createDatasets(self.state.raceData, self.state.raceToManipulate));
-            }, 500)
+              
+            }, 250)
           });
           
         

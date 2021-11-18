@@ -14,13 +14,27 @@ import * as MyLib from "./myChartLib.js"
 import DB from "../db.js"
 
 class AnalyticsPage extends React.Component {
+  constructor(props) {
+    super(props)
 
-
+    this.CurrentRaceToManipulateOutput = this.CurrentRaceToManipulateOutput.bind(this)
+  }
+  
 
   state = {
     db: new DB("RaceDB"),
 
   };
+
+  CurrentRaceToManipulateOutput(raceNr, largeKarts, smallKarts, doubleKarts){
+    console.log("monkey" + largeKarts);
+    this.setState({
+      CurrentRaceToManipulateOutput: raceNr,
+      CurrentRaceLarge: largeKarts,
+      CurrentRaceSmall: smallKarts,
+      CurrentRaceDouble: doubleKarts
+    })
+  }
   
   async createRace(){
     const res = await this.state.db.setRace(1);
@@ -54,19 +68,24 @@ class AnalyticsPage extends React.Component {
         
         </Row>
         <Row className="justify-content-md-center">
-          <Col id="largeKartOutput">Stora</Col>
-          <Col id="smallKartOutput">Små</Col>
-          <Col id="doubleKartOutput">Dubbla</Col>
+          <Col className="text-center" id="largeKartOutput">Race: {this.state.CurrentRaceToManipulateOutput+1 || 1}</Col>
+          
+          
         </Row>
         <Row className="justify-content-md-center">
-          <Col>0</Col>
-          <Col>0</Col>
-          <Col>0</Col>
+          <Col className="text-center" id="largeKartOutput">Stora</Col>
+          <Col className="text-center" id="smallKartOutput">Små</Col>
+          <Col className="text-center" id="doubleKartOutput">Dubbla</Col>
+        </Row>
+        <Row className="justify-content-md-center">
+          <Col className="text-center">{this.state.CurrentRaceLarge || 0}</Col>
+          <Col className="text-center">{this.state.CurrentRaceSmall || 0}</Col>
+          <Col className="text-center">{this.state.CurrentRaceDouble || 0}</Col>
         </Row>
         <Row className="justify-content-md-center">
             <Col className="d-grid" md="8">
                 
-                <CashChart largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList}/>
+                <CashChart largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList} CurrentRaceToManipulateOutput={this.CurrentRaceToManipulateOutput}/>
 
             </Col>
         </Row>
