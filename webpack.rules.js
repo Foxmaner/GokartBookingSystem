@@ -26,7 +26,17 @@ module.exports = [
       },
     },
   },
-
+  {
+  test: /\.(png|jpg|gif)$/i,
+  use: [
+    {
+      loader: 'url-loader',
+      options: {
+        limit: 8192
+      }
+    }
+  ]
+},
   
   // Put your webpack loader rules in this array.  This is where you would put
   // your ts-loader configuration for instance:
