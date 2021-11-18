@@ -97,7 +97,9 @@ class CashChart extends React.Component{
         var dataSet1 = dataSets.dataPack1;
         var dataSet2 = dataSets.dataPack2;
         var dataSet3 = dataSets.dataPack3;
-        console.log("baLLER" + dataSet1);
+        console.log("baLLER");
+        console.log(dataSets);
+        var dataSet4 = dataSets.raceNr;
         this.setState({
           series: [{
             name: 'Stora',
@@ -108,7 +110,12 @@ class CashChart extends React.Component{
           }, {
             name: 'Dubbla',
             data: dataSet3,
-          }]
+          }],
+          options:{
+            xaxis: {
+              categories: dataSet4,
+            },
+          },
         })
       };
 
@@ -157,14 +164,14 @@ class CashChart extends React.Component{
           //console.log(this.state.raceData[this.state.raceToManipulate]);
           //console.log("modulateRace= " + this.state.raceToManipulate)
           if(typeof this.state.raceData[this.state.raceToManipulate] == 'undefined'){
-            this.state.raceData[this.state.raceToManipulate] = {"raceID":"24","raceNr":"1","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"}
+            this.state.raceData[this.state.raceToManipulate] = {"raceID":"24","raceNr":""+(this.state.raceToManipulate+1),"largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"}
           }
         }else if(event.keyCode === 39){
           this.state.raceToManipulate++
           //console.log(this.state.raceData[this.state.raceToManipulate]);
           //console.log("modulateRace= " + this.state.raceToManipulate)
           if(typeof this.state.raceData[this.state.raceToManipulate] == 'undefined'){
-            this.state.raceData[this.state.raceToManipulate] = {"raceID":"24","raceNr":"1","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"}
+            this.state.raceData[this.state.raceToManipulate] = {"raceID":"24","raceNr":""+(this.state.raceToManipulate+1),"largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"}
           }
         }else if(event.keyCode === 81 && this.state.raceData[this.state.raceToManipulate].largeKart > 0 && this.state.raceData[this.state.raceToManipulate].largeKart <= 10){
           this.state.raceToManipulateLargeKarts--
@@ -201,7 +208,7 @@ class CashChart extends React.Component{
        this.setState({
           timeout: setTimeout(function () {
               console.log("BALLE");
-              self.updateChart(MyLib.createDatasets(self.state.raceData))
+              self.updateChart(MyLib.createDatasets(self.state.raceData));
             }, 1000)
           });
           

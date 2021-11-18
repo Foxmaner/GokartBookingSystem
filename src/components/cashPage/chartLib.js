@@ -25,11 +25,12 @@ export const createDatasets = (obj) => {
         dataPack2.push(0);
         dataPack3.push(0);
         raceNr.push(startNr);
+        console.log("Hej" + raceNr);
         startNr++;
       }
     }
     var dataPackObject = {
-        dataPack1,dataPack2,dataPack3
+        dataPack1,dataPack2,dataPack3,raceNr
     }
     return dataPackObject
     //console.log("stora" + dataPack1)
