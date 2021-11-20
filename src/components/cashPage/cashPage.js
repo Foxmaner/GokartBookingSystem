@@ -57,33 +57,33 @@ class AnalyticsPage extends React.Component {
     //MyLib.Funct1();
 
     return (
-      <Container className="app bg-light shadow-5-strong">
+      <Container className="app bg-light shadow-5-strong" >
         <Row className="justify-content-md-center mt-5">
        
             <LinkContainer to="/">
-              <Button variant="primary" size="lg">
+              <Button variant="primary" size="lg" >
                 Kassa
               </Button>
             </LinkContainer>
         
         </Row>
         <Row className="justify-content-md-center">
-          <Col className="text-center" id="largeKartOutput">Race: {this.state.CurrentRaceToManipulateOutput+1 || 1}</Col>
+          <Col className="text-center" id="largeKartOutput" style={{fontSize: "7vh"}}>Race: {this.state.CurrentRaceToManipulateOutput+1 || 1}</Col>
           
           
         </Row>
         <Row className="justify-content-md-center">
-          <Col className="text-center" id="largeKartOutput">Stora</Col>
-          <Col className="text-center" id="smallKartOutput">Små</Col>
-          <Col className="text-center" id="doubleKartOutput">Dubbla</Col>
+          <Col className="text-center" id="largeKartOutput" style={{fontSize: "5vh"}}>Stora</Col>
+          <Col className="text-center" id="smallKartOutput" style={{fontSize: "5vh"}}>Små</Col>
+          <Col className="text-center" id="doubleKartOutput" style={{fontSize: "5vh"}}>Dubbla</Col>
         </Row>
         <Row className="justify-content-md-center">
-          <Col className="text-center">{this.state.CurrentRaceLarge || 0}</Col>
-          <Col className="text-center">{this.state.CurrentRaceSmall || 0}</Col>
-          <Col className="text-center">{this.state.CurrentRaceDouble || 0}</Col>
+          <Col className="text-center" style={{fontSize: "5vh"}}>{this.state.CurrentRaceLarge || 0}</Col>
+          <Col className="text-center" style={{fontSize: "5vh"}}>{this.state.CurrentRaceSmall || 0}</Col>
+          <Col className="text-center" style={{fontSize: "5vh"}}>{this.state.CurrentRaceDouble || 0}</Col>
         </Row>
-        <Row className="justify-content-md-center">
-            <Col className="d-grid" md="8">
+        <Row className="justify-content-md-center" >
+            <Col className="d-grid" md="8" style={{height: "50vh"}}>
                 
                 <CashChart largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList} CurrentRaceToManipulateOutput={this.CurrentRaceToManipulateOutput}/>
 
