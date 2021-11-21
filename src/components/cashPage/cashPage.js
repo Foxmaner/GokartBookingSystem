@@ -23,7 +23,7 @@ class AnalyticsPage extends React.Component {
   };
 
   CurrentRaceToManipulateOutput(raceNr, largeKarts, smallKarts, doubleKarts){
-    console.log("monkey" + largeKarts);
+    //console.log("monkey" + largeKarts);
     this.setState({
       CurrentRaceToManipulateOutput: raceNr,
       CurrentRaceLarge: largeKarts,

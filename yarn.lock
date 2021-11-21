@@ -3334,6 +3334,11 @@
   "resolved" "https://registry.npmjs.org/immediate/-/immediate-3.3.0.tgz"
   "version" "3.3.0"
 
+"immediate@~3.0.5":
+  "integrity" "sha1-nbHb0Pr43m++D13V5Wu2BigN5ps="
+  "resolved" "https://registry.npmjs.org/immediate/-/immediate-3.0.6.tgz"
+  "version" "3.0.6"
+
 "imurmurhash@^0.1.4":
   "integrity" "sha1-khi5srkoojixPcT7a21XbyMUU+o="
   "resolved" "https://registry.npmjs.org/imurmurhash/-/imurmurhash-0.1.4.tgz"
@@ -3831,6 +3836,13 @@
     "level-iterator-stream" "~4.0.0"
     "level-supports" "~1.0.0"
     "xtend" "~4.0.0"
+
+"lie@3.1.1":
+  "integrity" "sha1-mkNrLMd0bKWd56QfpGmz77dr2H4="
+  "resolved" "https://registry.npmjs.org/lie/-/lie-3.1.1.tgz"
+  "version" "3.1.1"
+  dependencies:
+    "immediate" "~3.0.5"
 
 "load-json-file@^1.0.0":
   "integrity" "sha1-lWkFcI1YtLq0wiYbBPWfMcmTdMA="
@@ -4905,6 +4917,20 @@
     "nanoid" "^3.1.30"
     "picocolors" "^1.0.0"
     "source-map-js" "^0.6.2"
+
+"pouchdb-promise@^6.1.2":
+  "integrity" "sha512-ruJaSFXwzsxRHQfwNHjQfsj58LBOY1RzGzde4PM5CWINZwFjCQAhZwfMrch2o/0oZT6d+Xtt0HTWhq35p3b0qw=="
+  "resolved" "https://registry.npmjs.org/pouchdb-promise/-/pouchdb-promise-6.4.3.tgz"
+  "version" "6.4.3"
+  dependencies:
+    "lie" "3.1.1"
+
+"pouchdb-upsert@^2.2.0":
+  "integrity" "sha1-QrFeQghI87KUw1BgWJ/bUc9/f18="
+  "resolved" "https://registry.npmjs.org/pouchdb-upsert/-/pouchdb-upsert-2.2.0.tgz"
+  "version" "2.2.0"
+  dependencies:
+    "pouchdb-promise" "^6.1.2"
 
 "pouchdb@^7.2.2":
   "integrity" "sha512-5gf5nw5XH/2H/DJj8b0YkvG9fhA/4Jt6kL0Y8QjtztVjb1y4J19Rg4rG+fUbXu96gsUrlyIvZ3XfM0b4mogGmw=="

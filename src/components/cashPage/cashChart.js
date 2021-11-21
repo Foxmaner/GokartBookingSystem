@@ -2,6 +2,8 @@ import React from 'react';
 import Chart from "react-apexcharts";
 import * as MyLib from "./myChartLib.js"
 import Button from 'react-bootstrap/Button';
+
+import DB from '../db.js'
 class CashChart extends React.Component{
     
     constructor(props) {
@@ -10,6 +12,7 @@ class CashChart extends React.Component{
 
         //console.log("Cool"  + this.props.CurrentRaceToManipulateOutput)
         this.state = {
+            db: new DB("RaceDataDB"),
             timeout : 0,
             raceToManipulate: 0,
             raceToManipulateLargeKarts: 0,
@@ -108,8 +111,8 @@ class CashChart extends React.Component{
         var dataSet1 = dataSets.dataPack1;
         var dataSet2 = dataSets.dataPack2;
         var dataSet3 = dataSets.dataPack3;
-        console.log("baLLER");
-        console.log(dataSets);
+        //console.log("baLLER");
+        //console.log(dataSets);
         var dataSet4 = dataSets.raceNr;
         this.setState({
           series: [{
@@ -160,15 +163,19 @@ class CashChart extends React.Component{
             this.state.raceData[raceToManipulate].doubleKart = '' + (parseInt(this.state.raceData[raceToManipulate].doubleKart) - 1);
           }
         }
-        console.log(this.state.raceData);
+        //console.log(this.state.raceData);
       }
       
 
-      keyEventFunction(event){
+      async keyEventFunction(event){
         if (event.repeat) { return }
         clearTimeout(this.state.timeout);
         if(event.keyCode === 27) {
           //console.log(this.state.raceData)
+          console.log("TJOO");
+          console.log(this.state.raceData);
+          this.state.raceData = await this.state.db.getRaceDataDB(this.state.raceData);
+          console.log(this.state.raceData);
           //this.updateChart(MyLib.createDatasets(this.state.raceData))
         }else if(event.keyCode === 37 && this.state.raceToManipulate > 0){
           this.state.raceToManipulate--
@@ -187,27 +194,27 @@ class CashChart extends React.Component{
         }else if(event.keyCode === 81 && this.state.raceData[this.state.raceToManipulate].largeKart > 0 && this.state.raceData[this.state.raceToManipulate].largeKart <= 10){
           this.state.raceToManipulateLargeKarts--
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"large","remove");
-          console.log("modulateRace= " + this.state.raceToManipulateLargeKarts)
+          //console.log("modulateRace= " + this.state.raceToManipulateLargeKarts)
         }else if(event.keyCode === 87 && this.state.raceData[this.state.raceToManipulate].largeKart >= 0 && this.state.raceData[this.state.raceToManipulate].largeKart < 10){
           this.state.raceToManipulateLargeKarts++
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"large","add");
-          console.log("modulateRace= " + this.state.raceToManipulateLargeKarts)
+          //console.log("modulateRace= " + this.state.raceToManipulateLargeKarts)
         }else if(event.keyCode === 65 && this.state.raceData[this.state.raceToManipulate].smallKart > 0 && this.state.raceData[this.state.raceToManipulate].smallKart <= 6){
           this.state.raceToManipulateSmalKarts--
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"smal","remove");
-          console.log("modulateRace= " + this.state.raceToManipulateSmalKarts)
+          //console.log("modulateRace= " + this.state.raceToManipulateSmalKarts)
         }else if(event.keyCode === 83 && this.state.raceData[this.state.raceToManipulate].smallKart >= 0 && this.state.raceData[this.state.raceToManipulate].smallKart < 6){
           this.state.raceToManipulateSmalKarts++
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"smal","add");
-          console.log("modulateRace= " + this.state.raceToManipulateSmalKarts)
+          //console.log("modulateRace= " + this.state.raceToManipulateSmalKarts)
         }else if(event.keyCode === 90 && this.state.raceData[this.state.raceToManipulate].doubleKart > 0 && this.state.raceData[this.state.raceToManipulate].doubleKart <= 2){
           this.state.raceToManipulateDoubleKarts--
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"double","remove");
-          console.log("modulateRace= " + this.state.raceToManipulateDoubleKarts)
+          //console.log("modulateRace= " + this.state.raceToManipulateDoubleKarts)
         }else if(event.keyCode === 88 && this.state.raceData[this.state.raceToManipulate].doubleKart >= 0 && this.state.raceData[this.state.raceToManipulate].doubleKart < 2){
           this.state.raceToManipulateDoubleKarts++
           this.editRaceData(this.state.raceToManipulate,this.state.raceData,"double","add");
-          console.log("modulateRace= " + this.state.raceToManipulateDoubleKarts)
+          //console.log("modulateRace= " + this.state.raceToManipulateDoubleKarts)
         };
 
         this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart);
@@ -220,15 +227,17 @@ class CashChart extends React.Component{
           timeout: setTimeout(function () {
               //console.log("BALLE");
               self.updateChart(MyLib.createDatasets(self.state.raceData, self.state.raceToManipulate));
-              
+              self.state.db.updateRace(self.state.raceData);
             }, 250)
           });
           
         
         
       };
-      componentDidMount(){
+      async componentDidMount(){
         document.addEventListener("keydown", this.keyEventFunction, false);
+        this.state.raceData = await this.state.db.getRaceDataDB(this.state.raceData);
+        this.updateChart(MyLib.createDatasets(this.state.raceData, this.state.raceToManipulate));
       };
       componentWillUnmount(){
         document.removeEventListener("keydown", this.keyEventFunction, false);
