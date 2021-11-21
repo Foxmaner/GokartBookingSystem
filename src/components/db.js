@@ -5,27 +5,22 @@ export default class DB {
         this.db = new PouchDB(name);
     }
 
-    async getAllRaces(){
-        let allRaces = await this.db.allDocs({ include_docs: true });
-        return allRaces;
-    };
-    async setRace(raceData){
-        
+    async updateRace(raceData){
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
 
-        var myDoc = {1:1}
+        today = dd + '/' + mm + '/' + yyyy;
 
-        const res = await this.db.put(myDoc).then(function () {
-                                    // success
-                                }).catch(function (err) {
-                                    if (err.name === 'conflict') {
-                                    // conflict!
-                                    } else {
-                                    // some other error
-                                    }
-                                });
-        
-        ;
-        return res;
+        var doc = {
+            _id: today,
+            raceDataField: raceData
+        }
+
+        const res = await this.db.post(doc)
+
+        return res
     }
 
 

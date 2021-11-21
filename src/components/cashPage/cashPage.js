@@ -9,21 +9,17 @@ import Chart from "react-apexcharts";
 import CashChart from "./cashChart.js"
 import { LinkContainer } from 'react-router-bootstrap'
 
-import * as MyLib from "./myChartLib.js"
 
-import DB from "../db.js"
 
 class AnalyticsPage extends React.Component {
   constructor(props) {
     super(props)
 
     this.CurrentRaceToManipulateOutput = this.CurrentRaceToManipulateOutput.bind(this)
-  }
+  };
   
 
   state = {
-    db: new DB("RaceDB"),
-
   };
 
   CurrentRaceToManipulateOutput(raceNr, largeKarts, smallKarts, doubleKarts){
@@ -34,15 +30,6 @@ class AnalyticsPage extends React.Component {
       CurrentRaceSmall: smallKarts,
       CurrentRaceDouble: doubleKarts
     })
-  }
-  
-  async createRace(){
-    const res = await this.state.db.setRace(1);
-  };
-  async fetchAllRace(){
-    
-    const races = await this.state.db.getAllRaces();
-    console.log(races)
   };
   
 
