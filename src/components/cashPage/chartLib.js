@@ -11,14 +11,19 @@ export const createDatasets = (obj, raceToManipulate) => {
     var dataPack3 = [];
     var raceNr = [];
   
-    for (var i = 0; i < obj.length; i++) {
+    for (var i = 0; i < 11; i++) {
+      if (obj[i] == null) {
+        break
+      }  
       dataPack1[i] = obj[i].largeKart;
       dataPack2[i] = obj[i].smallKart;
       dataPack3[i] = obj[i].doubleKart;
       raceNr[i] = parseInt(obj[i].raceNr, 10);
     };
+    
     if (raceToManipulate>5){
-      //console.log("TJOOO");
+      console.log("TJOOO");
+      console.log(raceToManipulate);
       console.log(raceToManipulate-5);
       for (var i = 1; i <= raceToManipulate-5; i++) {
         dataPack1.shift();
@@ -29,15 +34,15 @@ export const createDatasets = (obj, raceToManipulate) => {
       };
     }
     if (raceNr.length < 11) {
-      //console.log("TRUUUE")
+      console.log("FEEEEL?")
       var startNr = +raceNr[raceNr.length - 1] + 1;
       for (var i = raceNr.length + 1; i <= 11; i++) {
-        //console.log("TRUUUE")
+        
         dataPack1.push(0);
         dataPack2.push(0);
         dataPack3.push(0);
         raceNr.push(startNr);
-        //console.log("Hej" + raceNr);
+        console.log("Hej" + i);
         startNr++;
       }
     };
@@ -45,9 +50,7 @@ export const createDatasets = (obj, raceToManipulate) => {
         dataPack1,dataPack2,dataPack3,raceNr
     }
     return dataPackObject
-    //console.log("stora" + dataPack1)
-    //console.log("små" + dataPack2)
-    //console.log("dubbla" + dataPack3)
+
 
     
     /*chart.updateOptions({
