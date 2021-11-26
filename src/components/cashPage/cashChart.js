@@ -168,16 +168,16 @@ class CashChart extends React.Component{
       
 
       async keyEventFunction(event){
-        console.log("TJOO");
-        console.log(this.state.raceData);
+        //console.log("TJOO");
+        //console.log(this.state.raceData);
         if (event.repeat) { return }
         clearTimeout(this.state.timeout);
         if(event.keyCode === 27) {
           //console.log(this.state.raceData)
-          console.log("TJOO");
-          console.log(this.state.raceData);
+          //console.log("TJOO");
+          //console.log(this.state.raceData);
           this.state.raceData = await this.state.db.getRaceDataDB(this.state.raceData);
-          console.log(this.state.raceData);
+          //console.log(this.state.raceData);
           //this.updateChart(MyLib.createDatasets(this.state.raceData))
         }else if(event.keyCode === 37 && this.state.raceToManipulate > 0){
           this.state.raceToManipulate--

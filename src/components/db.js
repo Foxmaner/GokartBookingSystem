@@ -9,8 +9,8 @@ export default class DB {
     async myDeltaFunction(doc) {
         doc.counter = doc.counter || 0;
         doc.counter++;
-        console.log(doc);
-        console.log("cooler");
+        //console.log(doc);
+        //console.log("cooler");
         return doc;
       }
 
@@ -27,7 +27,7 @@ export default class DB {
             raceDataField: raceData,
             counter: 0,
         }
-        console.log("updateRaceData");
+        //console.log("updateRaceData");
         //const todayRaceData = await this.db.get(today);
         var todayRaceData = doc;
        /* try {
@@ -56,11 +56,11 @@ export default class DB {
             return doc;
           }).then(function (res) {
             // success, res is {rev: '1-xxx', updated: true, id: 'myDocId'}
-            console.log(res);
+            //console.log(res);
           }).catch(function (err) {
             // error
           });
-          console.log(doc);
+         // console.log(doc);
 
 
 
@@ -88,8 +88,8 @@ export default class DB {
 
 
         var todayRaceData = await this.db.get(today);
-        console.log("return");
-        console.log(todayRaceData.raceDataField);
+        //console.log("return");
+        //console.log(todayRaceData.raceDataField);
         todayRaceData = todayRaceData.raceDataField;
         return todayRaceData
     }

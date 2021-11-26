@@ -1,3 +1,5 @@
+import stringify from "json-stringify-safe";
+
 export const Funct1 = () => {
     //console.log("Fuck off and die")
 }
@@ -5,50 +7,56 @@ export const Funct1 = () => {
 export const createDatasets = (obj, raceToManipulate) => {
     //console.log("createDatasets() object V ");
     //console.log("raceTOmanipulate" + raceToManipulate);
+    //console.log("COOLLER" + JSON. stringify(obj))
   
     var dataPack1 = [];
     var dataPack2 = [];
     var dataPack3 = [];
     var raceNr = [];
-  
-    for (var i = 0; i < 11; i++) {
-      if (obj[i] == null) {
-        break
-      }  
-      dataPack1[i] = obj[i].largeKart;
-      dataPack2[i] = obj[i].smallKart;
-      dataPack3[i] = obj[i].doubleKart;
-      raceNr[i] = parseInt(obj[i].raceNr, 10);
-    };
-    
-    if (raceToManipulate>5){
-      console.log("TJOOO");
-      console.log(raceToManipulate);
-      console.log(raceToManipulate-5);
-      for (var i = 1; i <= raceToManipulate-5; i++) {
-        dataPack1.shift();
-        dataPack2.shift();
-        dataPack3.shift();
-        raceNr.shift();
-        //console.log("TJOOO");
+    console.log("manipulera" + raceToManipulate)
+    if(raceToManipulate<=5){
+      console.log("snooooper")
+      for (var i = 0; i < 11; i++) {
+        if (obj[i] === undefined || obj[i] == null) {
+          dataPack1[i] = 0;
+          dataPack2[i] = 0;
+          dataPack3[i] = 0;
+          raceNr[i] = i+1;
+        }else{  
+          dataPack1[i] = obj[i].largeKart;
+          dataPack2[i] = obj[i].smallKart;
+          dataPack3[i] = obj[i].doubleKart;
+          raceNr[i] = parseInt(obj[i].raceNr);
+        }
       };
-    }
-    if (raceNr.length < 11) {
-      console.log("FEEEEL?")
-      var startNr = +raceNr[raceNr.length - 1] + 1;
-      for (var i = raceNr.length + 1; i <= 11; i++) {
-        
-        dataPack1.push(0);
-        dataPack2.push(0);
-        dataPack3.push(0);
-        raceNr.push(startNr);
-        console.log("Hej" + i);
-        startNr++;
-      }
+    }else{
+      var raceNrToPick = raceToManipulate-5
+      for (var i = 0; i < 11; i++) {
+        console.log(raceNrToPick)
+        console.log("cool" + JSON.stringify(obj))
+        console.log(dataPack1[raceNrToPick])
+        if (obj[raceNrToPick] === undefined || obj[raceNrToPick] == null) {
+          dataPack1[i] = 0;
+          dataPack2[i] = 0;
+          dataPack3[i] = 0;
+          raceNr[i] = raceNrToPick+1;
+        }else{  
+          dataPack1[i] = obj[raceNrToPick].largeKart;
+          dataPack2[i] = obj[raceNrToPick].smallKart;
+          dataPack3[i] = obj[raceNrToPick].doubleKart;
+          raceNr[i] = parseInt(obj[raceNrToPick].raceNr);
+        }
+        raceNrToPick++
+      };
     };
+
+      
+
+
     var dataPackObject = {
         dataPack1,dataPack2,dataPack3,raceNr
     }
+    //console.log("datapack" + JSON.stringify(dataPackObject))
     return dataPackObject
 
 
