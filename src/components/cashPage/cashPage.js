@@ -41,9 +41,13 @@ class AnalyticsPage extends React.Component {
         isValid: true
       })
     }else{
+
+      errorMessage = JSON.parse(errorMessage);
+      var errorType = errorMessage["error"]
+      var errorReason = errorMessage["reason"]
       this.setState({
         isValid: false,
-        syncErrorMessage: errorMessage
+        syncErrorMessage: "ErrorType:" + errorType + " --- ErrorReason: " + errorReason  
       })
     }
   }
@@ -74,7 +78,7 @@ class AnalyticsPage extends React.Component {
         {this.state.isValid 
           ? <Alert className="text-center" variant="success">Datan syncas mot en extern databas</Alert>
           : <Alert className="text-center" variant="danger">Kunde inte synca till externa databasen, datan sparas fortfarande lokalt <br></br>
-          ErrorMessage: {this.state.syncErrorMessage}</Alert>
+          Error -- {this.state.syncErrorMessage}</Alert>
         }
         </Row>
         <Row className="justify-content-md-center">
