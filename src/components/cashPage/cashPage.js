@@ -14,7 +14,6 @@ import { LinkContainer } from 'react-router-bootstrap'
 class AnalyticsPage extends React.Component {
   constructor(props) {
     super(props)
-
     this.CurrentRaceToManipulateOutput = this.CurrentRaceToManipulateOutput.bind(this)
   };
   
