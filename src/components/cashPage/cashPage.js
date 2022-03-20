@@ -17,7 +17,8 @@ class AnalyticsPage extends React.Component {
     super(props)
     this.CurrentRaceToManipulateOutput = this.CurrentRaceToManipulateOutput.bind(this)
     this.state = {
-      isValid: true
+      isValid: true,
+      syncErrorMessage: ""
     }
     this.setSyncStatus = this.setSyncStatus.bind(this);
   };
@@ -34,14 +35,15 @@ class AnalyticsPage extends React.Component {
     })
   };
   
-  setSyncStatus(isValidSync){
+  setSyncStatus(isValidSync, errorMessage){
     if(isValidSync){
       this.setState({
         isValid: true
       })
     }else{
       this.setState({
-        isValid: false
+        isValid: false,
+        syncErrorMessage: errorMessage
       })
     }
   }
@@ -71,7 +73,8 @@ class AnalyticsPage extends React.Component {
         <Row className="justify-content-md-center">
         {this.state.isValid 
           ? <Alert className="text-center" variant="success">Datan syncas mot en extern databas</Alert>
-          : <Alert className="text-center" variant="danger">Kunde inte synca till externa databasen, datan sparas fortfarande lokalt</Alert>
+          : <Alert className="text-center" variant="danger">Kunde inte synca till externa databasen, datan sparas fortfarande lokalt <br></br>
+          ErrorMessage: {this.state.syncErrorMessage}</Alert>
         }
         </Row>
         <Row className="justify-content-md-center">

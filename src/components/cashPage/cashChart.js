@@ -237,10 +237,10 @@ class CashChart extends React.Component{
 
               await self.state.db.db.sync(self.state.remoteDB).on('complete', function () {
                 console.log("Synced")
-                self.props.setSyncStatus(true)
+                self.props.setSyncStatus(true,"")
               }).on('error', function (err) {
                 console.log("Not synced: " + err)
-                self.props.setSyncStatus(false)
+                self.props.setSyncStatus(false,JSON.stringify(err))
               });
             }, 250)
           });
