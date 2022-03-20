@@ -52,8 +52,6 @@ export default function SettingsSlide() {
                             </Form.Group>
                     
                     </Form>
-
-
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
