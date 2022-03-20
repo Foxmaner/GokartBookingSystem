@@ -71,7 +71,7 @@ class AnalyticsPage extends React.Component {
         <Row className="justify-content-md-center">
         {this.state.isValid 
           ? <Alert className="text-center" variant="success">Datan syncas mot en extern databas</Alert>
-          : <Alert className="text-center" variant="danger">Kunde inte synca till externa databasen</Alert>
+          : <Alert className="text-center" variant="danger">Kunde inte synca till externa databasen, datan sparas fortfarande lokalt</Alert>
         }
         </Row>
         <Row className="justify-content-md-center">
