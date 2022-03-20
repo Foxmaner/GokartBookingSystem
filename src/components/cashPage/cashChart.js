@@ -106,8 +106,8 @@ class CashChart extends React.Component{
             
             
             };
-            this.keyEventFunction = this.keyEventFunction.bind(this);
-        
+            this.keyEventFunction = this.keyEventFunction.bind(this);    
+               
       }
       
     
@@ -237,8 +237,10 @@ class CashChart extends React.Component{
 
               await self.state.db.db.sync(self.state.remoteDB).on('complete', function () {
                 console.log("Synced")
+                self.props.setSyncStatus(true)
               }).on('error', function (err) {
                 console.log("Not synced: " + err)
+                self.props.setSyncStatus(false)
               });
             }, 250)
           });
