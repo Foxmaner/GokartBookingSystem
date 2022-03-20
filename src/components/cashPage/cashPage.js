@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
+import Alert from 'react-bootstrap/Alert';
 import Logo from '../../../src/assets/appPictures/cashIcon.png'
 import Chart from "react-apexcharts";
 import CashChart from "./cashChart.js"
@@ -19,6 +20,7 @@ class AnalyticsPage extends React.Component {
   
 
   state = {
+    isValid: true
   };
 
   CurrentRaceToManipulateOutput(raceNr, largeKarts, smallKarts, doubleKarts){
@@ -54,9 +56,13 @@ class AnalyticsPage extends React.Component {
         
         </Row>
         <Row className="justify-content-md-center">
+        {this.state.isValid 
+          ? <Alert className="text-center" variant="success">Datan syncas mot en extern databas</Alert>
+          : <Alert className="text-center" variant="danger">Kunde inte synca till externa databasen</Alert>
+        }
+        </Row>
+        <Row className="justify-content-md-center">
           <Col className="text-center" id="largeKartOutput" style={{fontSize: "7vh"}}>Race: {this.state.CurrentRaceToManipulateOutput+1 || 1}</Col>
-          
-          
         </Row>
         <Row className="justify-content-md-center">
           <Col className="text-center" id="largeKartOutput" style={{fontSize: "5vh"}}>Stora</Col>
