@@ -13,9 +13,7 @@ export const createDatasets = (obj, raceToManipulate) => {
     var dataPack2 = [];
     var dataPack3 = [];
     var raceNr = [];
-    console.log("manipulera" + raceToManipulate)
     if(raceToManipulate<=5){
-      console.log("snooooper")
       for (var i = 0; i < 11; i++) {
         if (obj[i] === undefined || obj[i] == null) {
           dataPack1[i] = 0;

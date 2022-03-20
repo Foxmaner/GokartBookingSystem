@@ -2,6 +2,9 @@ import React from 'react';
 import Chart from "react-apexcharts";
 import * as MyLib from "./myChartLib.js"
 import Button from 'react-bootstrap/Button';
+import PouchDB from 'pouchdb';
+import upsert from 'pouchdb-upsert';
+PouchDB.plugin(upsert);
 
 import DB from '../db.js'
 class CashChart extends React.Component{
@@ -13,6 +16,7 @@ class CashChart extends React.Component{
         //console.log("Cool"  + this.props.CurrentRaceToManipulateOutput)
         this.state = {
             db: new DB("RaceDataDB"),
+            remoteDB: new PouchDB('http://localhost:5984/myremotedb'),
             timeout : 0,
             raceToManipulate: 0,
             raceToManipulateLargeKarts: 0,
@@ -226,10 +230,16 @@ class CashChart extends React.Component{
         }
    
        this.setState({
-          timeout: setTimeout(function () {
+          timeout: setTimeout(async function () {
               //console.log("BALLE");
               self.updateChart(MyLib.createDatasets(self.state.raceData, self.state.raceToManipulate));
               self.state.db.updateRace(self.state.raceData);
+
+              await self.state.db.db.sync(self.state.remoteDB).on('complete', function () {
+                console.log("Synced")
+              }).on('error', function (err) {
+                console.log("Not synced: " + err)
+              });
             }, 250)
           });
           
