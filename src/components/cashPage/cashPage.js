@@ -9,7 +9,7 @@ import Logo from '../../../src/assets/appPictures/cashIcon.png'
 import Chart from "react-apexcharts";
 import CashChart from "./cashChart.js"
 import { LinkContainer } from 'react-router-bootstrap'
-import SettingsSlide from "./SettingsSlide.js"
+import SettingsSlide from "./settingsSlide.js"
 
 
 

@@ -421,6 +421,7 @@
   dependencies:
     "@electron-forge/maker-base" "6.0.0-beta.61"
     "@electron-forge/shared-types" "6.0.0-beta.61"
+    "electron-installer-debian" "^3.0.0"
   optionalDependencies:
     "electron-installer-debian" "^3.0.0"
 
@@ -431,6 +432,7 @@
   dependencies:
     "@electron-forge/maker-base" "6.0.0-beta.61"
     "@electron-forge/shared-types" "6.0.0-beta.61"
+    "electron-installer-redhat" "^3.2.0"
   optionalDependencies:
     "electron-installer-redhat" "^3.2.0"
 
@@ -441,6 +443,7 @@
   dependencies:
     "@electron-forge/maker-base" "6.0.0-beta.61"
     "@electron-forge/shared-types" "6.0.0-beta.61"
+    "electron-winstaller" "^5.0.0"
     "fs-extra" "^10.0.0"
   optionalDependencies:
     "electron-winstaller" "^5.0.0"
@@ -557,6 +560,8 @@
     "debug" "^4.1.1"
     "env-paths" "^2.2.0"
     "fs-extra" "^8.1.0"
+    "global-agent" "^3.0.0"
+    "global-tunnel-ng" "^2.7.1"
     "got" "^9.6.0"
     "progress" "^2.0.3"
     "semver" "^6.2.0"
@@ -1155,6 +1160,7 @@
   "resolved" "https://registry.npmjs.org/asar/-/asar-2.1.0.tgz"
   "version" "2.1.0"
   dependencies:
+    "@types/glob" "^7.1.1"
     "chromium-pickle-js" "^0.2.0"
     "commander" "^2.20.0"
     "cuint" "^0.2.2"
@@ -1170,6 +1176,7 @@
   "resolved" "https://registry.npmjs.org/asar/-/asar-3.1.0.tgz"
   "version" "3.1.0"
   dependencies:
+    "@types/glob" "^7.1.1"
     "chromium-pickle-js" "^0.2.0"
     "commander" "^5.0.0"
     "glob" "^7.1.6"
@@ -1525,6 +1532,7 @@
   dependencies:
     "anymatch" "~3.1.2"
     "braces" "~3.0.2"
+    "fsevents" "~2.3.2"
     "glob-parent" "~5.1.2"
     "is-binary-path" "~2.1.0"
     "is-glob" "~4.0.1"
@@ -2538,6 +2546,7 @@
   "resolved" "https://registry.npmjs.org/extract-zip/-/extract-zip-2.0.1.tgz"
   "version" "2.0.1"
   dependencies:
+    "@types/yauzl" "^2.9.1"
     "debug" "^4.1.1"
     "get-stream" "^5.1.0"
     "yauzl" "^2.10.0"
@@ -3702,6 +3711,8 @@
   "integrity" "sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss="
   "resolved" "https://registry.npmjs.org/jsonfile/-/jsonfile-4.0.0.tgz"
   "version" "4.0.0"
+  dependencies:
+    "graceful-fs" "^4.1.6"
   optionalDependencies:
     "graceful-fs" "^4.1.6"
 
@@ -3710,6 +3721,7 @@
   "resolved" "https://registry.npmjs.org/jsonfile/-/jsonfile-6.1.0.tgz"
   "version" "6.1.0"
   dependencies:
+    "graceful-fs" "^4.1.6"
     "universalify" "^2.0.0"
   optionalDependencies:
     "graceful-fs" "^4.1.6"
@@ -4195,6 +4207,7 @@
   "resolved" "https://registry.npmjs.org/minipass-fetch/-/minipass-fetch-1.4.1.tgz"
   "version" "1.4.1"
   dependencies:
+    "encoding" "^0.1.12"
     "minipass" "^3.1.0"
     "minipass-sized" "^1.0.3"
     "minizlib" "^2.0.0"
