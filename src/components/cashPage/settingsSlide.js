@@ -2,21 +2,28 @@ import React, {useState} from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import DB from "../db";
 
 
 export default function SettingsSlide() {
   const [inputs, setInputs] = useState({});
-
+  var settingsDB = new DB("SettingsDB");
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs(values => ({...values, [name]: value}))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(inputs);
+    //console.log(inputs);
     alert("Sparat. Starta om programmet!")
+    await settingsDB.setSyncSettings(inputs);
+    
+    //This is how to get the settings
+    //var cooler = await settingsDb.getSettings();
+    //console.log(cooler);
+    
   }
 
 

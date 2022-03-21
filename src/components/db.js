@@ -94,6 +94,30 @@ export default class DB {
         return todayRaceData
     }
 
+    async setSyncSettings(settings){
+      
+      this.db.upsert("settings", function (doc) {
+        doc.syncServerSettings = settings;
+        //doc.count++;
+        return doc;
+      }).then(function (res) {
+        // success, res is {rev: '1-xxx', updated: true, id: 'myDocId'}
+        console.log(res);
+      }).catch(function (err) {
+        // error
+        console.log(error);
+      });
+
+    }
+    async getSyncSettings(){
+        var settings = await this.db.get("settings");
+        console.log("return");
+        console.log(settings.syncServerSettings);
+        //syncSettings = syncSettings.settings;
+        return settings.syncServerSettings
+
+    }
+
 
 
 
