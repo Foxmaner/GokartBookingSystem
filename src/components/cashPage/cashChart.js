@@ -174,6 +174,9 @@ class CashChart extends React.Component{
       async keyEventFunction(event){
         //console.log("TJOO");
         //console.log(this.state.raceData);
+
+        //Dont listen if settings are open
+        if (document.activeElement.id!="mainBody"){return}
         if (event.repeat) { return }
         clearTimeout(this.state.timeout);
         if(event.keyCode === 27) {
