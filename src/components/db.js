@@ -111,8 +111,8 @@ export default class DB {
     }
     async getSyncSettings(){
         var settings = await this.db.get("settings");
-        console.log("return");
-        console.log(settings.syncServerSettings);
+        //console.log("return");
+        //console.log(settings.syncServerSettings);
         //syncSettings = syncSettings.settings;
         return settings.syncServerSettings
 

@@ -5,9 +5,11 @@ import Form from 'react-bootstrap/Form';
 import DB from "../db";
 
 
-export default function SettingsSlide() {
+export default function SettingsSlide(props) {
   const [inputs, setInputs] = useState({});
   var settingsDB = new DB("SettingsDB");
+  
+  
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -76,7 +78,12 @@ export default function SettingsSlide() {
                             <Button type="submit">
                               Spara inställningarna
                             </Button>
+                            <Form.Group className="mb-3" controlId="formPassword">
+                                <p>Aktuell data....</p>
+                                <pre>Aktuell data: {JSON.stringify(props.settings)}</pre>
+                            </Form.Group>
                     </Form>
+                    
           </Modal.Body>
         </Modal>
       </>

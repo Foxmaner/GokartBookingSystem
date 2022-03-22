@@ -10,7 +10,7 @@ import Chart from "react-apexcharts";
 import CashChart from "./cashChart.js"
 import { LinkContainer } from 'react-router-bootstrap'
 import SettingsSlide from "./settingsSlide.js"
-
+import DB from "../db";
 
 
 class AnalyticsPage extends React.Component {
@@ -19,7 +19,9 @@ class AnalyticsPage extends React.Component {
     this.CurrentRaceToManipulateOutput = this.CurrentRaceToManipulateOutput.bind(this)
     this.state = {
       isValid: true,
-      syncErrorMessage: ""
+      syncErrorMessage: "",
+      settingsDB: new DB("SettingsDB"),
+      settings: ""
     }
     this.setSyncStatus = this.setSyncStatus.bind(this);
   };
@@ -51,6 +53,11 @@ class AnalyticsPage extends React.Component {
         syncErrorMessage: "ErrorType:" + errorType + " --- ErrorReason: " + errorReason  
       })
     }
+  }
+
+  async componentDidMount(){
+    var cooler = await this.state.settingsDB.getSyncSettings();
+    this.setState({settings:cooler})
   }
 
   
@@ -103,7 +110,7 @@ class AnalyticsPage extends React.Component {
             </Col>
         </Row>
         <Row className="justify-content-md-center" >
-        <SettingsSlide></SettingsSlide>
+        <SettingsSlide settings={this.state.settings}></SettingsSlide>
         </Row>
       </Container>
       
