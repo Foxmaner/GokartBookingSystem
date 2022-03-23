@@ -1,8 +1,8 @@
 {
   "name": "gokartbokningssystem",
-  "productName": "Gokart Bokningssystem",
+  "productName": "gokartbokningssystem",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "A gokart-bookingsystem with offline-first in mind",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
@@ -12,7 +12,7 @@
     "lint": "echo \"No linting configured\""
   },
   "keywords": [],
-  "author": "eskil",
+  "author": "Foxmaner",
   "license": "MIT",
   "config": {
     "forge": {
@@ -21,7 +21,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "my_new_app"
+            "name": "gokartbokningssystem"
           }
         },
         {
