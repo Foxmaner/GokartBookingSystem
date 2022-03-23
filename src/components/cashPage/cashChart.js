@@ -17,6 +17,7 @@ class CashChart extends React.Component{
         this.state = {
             db: new DB("RaceDataDB"),
             remoteDB: new PouchDB('http://localhost:5984/myremotedb'),
+            settingsDB: new DB("SettingsDB"),
             timeout : 0,
             raceToManipulate: 0,
             raceToManipulateLargeKarts: 0,
@@ -106,6 +107,10 @@ class CashChart extends React.Component{
             
             
             };
+
+
+
+
             this.keyEventFunction = this.keyEventFunction.bind(this);    
                
       }
@@ -255,6 +260,12 @@ class CashChart extends React.Component{
         document.addEventListener("keydown", this.keyEventFunction, false);
         this.state.raceData = await this.state.db.getRaceDataDB(this.state.raceData);
         this.updateChart(MyLib.createDatasets(this.state.raceData, this.state.raceToManipulate));
+        
+        var cooler = await this.state.settingsDB.getSyncSettings();
+        //console.log(cooler);
+        await this.setState({remoteDB:new PouchDB("http://" + cooler.formServerAdress + ":" + cooler.formServerPort+ "/" + cooler.formDbName)})
+        //console.log(this.state.remoteDB)
+      
       };
       componentWillUnmount(){
         document.removeEventListener("keydown", this.keyEventFunction, false);
