@@ -1,7 +1,12 @@
 import stringify from "json-stringify-safe";
+import printJS from 'print-js'
 
 export const Funct1 = () => {
     //console.log("Fuck off and die")
+}
+
+export const printTodayData = (raceData) => {
+  printJS({printable: raceData, properties: ['raceNr', 'largeKart', 'smallKart', 'doubleKart'], type: 'json'})
 }
 
 export const createDatasets = (obj, raceToManipulate) => {

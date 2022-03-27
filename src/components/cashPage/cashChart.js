@@ -285,8 +285,13 @@ class CashChart extends React.Component{
                     series={this.state.series}
                     type="bar"
                     width="100%"
-                    height= "100%" 
+                    height= "90%" 
                     />
+                    
+                    <Button variant="primary" onClick={() => {MyLib.printTodayData(this.state.raceData)}}>
+                      Skriv ut dagens racedata
+                    </Button>
+                    
                 </div>   
         );
         
