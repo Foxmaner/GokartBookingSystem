@@ -14,7 +14,7 @@ class MenuPage extends React.Component {
         <Row className="justify-content-md-center mt-5">
           <Col className="d-grid" md="8">
             <LinkContainer to="/analytics">
-              <Button variant="primary" size="lg">
+              <Button variant="primary" size="lg" disabled>
                 Analys
               </Button>
             </LinkContainer>
@@ -32,7 +32,7 @@ class MenuPage extends React.Component {
         <Row className="justify-content-md-center mt-5">
           <Col className="d-grid" md="8">
           <LinkContainer to="/depot">
-              <Button variant="primary" size="lg">
+              <Button variant="primary" size="lg" disabled>
                 Depå
               </Button>
             </LinkContainer>
@@ -41,7 +41,7 @@ class MenuPage extends React.Component {
         <Row className="justify-content-md-center mt-5">
           <Col className="d-grid" md="8">
           <LinkContainer to="/settings">
-              <Button variant="primary" size="lg">
+              <Button variant="primary" size="lg" disabled>
                 Inställningar
               </Button>
             </LinkContainer>

@@ -259,7 +259,7 @@ class CashChart extends React.Component{
       };
       async componentDidMount(){
         await this.state.db.db.sync(this.state.remoteDB).on('complete', function () {
-          alert("Synkat data mot server på uppstart")
+          //alert("Synkat data mot server på uppstart")
         }).on('error', function (err) {
           alert("Datan kunde inte synkas på upstart, datan fortsätt lagras lokalt: " + err)
         });
