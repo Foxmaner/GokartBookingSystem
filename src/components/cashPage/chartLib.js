@@ -6,7 +6,44 @@ export const Funct1 = () => {
 }
 
 export const printTodayData = (raceData) => {
-  printJS({printable: raceData, properties: ['raceNr', 'largeKart', 'smallKart', 'doubleKart'], type: 'json'})
+  var printableRaceData = []
+
+  for (var i = 0; i < raceData.length; i++){
+    var largeKartText = ""
+    var smallKartText = ""
+    var doubleKartText = ""
+    
+    
+    for (var j = 0; j < raceData[i]["largeKart"]; j++){
+       largeKartText = largeKartText + "I "
+    }
+    for (var j = 0; j < raceData[i]["smallKart"]; j++){
+      smallKartText = smallKartText + "½ "
+     }
+   for (var j = 0; j < raceData[i]["doubleKart"]; j++){
+    doubleKartText = doubleKartText + "D "
+    }
+
+    
+    printableRaceData.push({
+      raceNr: i+1,
+      largeKart: largeKartText,
+      smallKart: smallKartText,
+      doubleKart: doubleKartText
+    })
+  }
+
+
+  for (var k = raceData.length; k < 60; k++){
+    printableRaceData.push({
+      raceNr: k+1,
+      largeKart: "",
+      smallKart: "",
+      doubleKart: ""
+    })
+  }
+
+  printJS({printable: printableRaceData, properties: ['raceNr', 'largeKart', 'smallKart', 'doubleKart'], type: 'json'})
 }
 
 export const createDatasets = (obj, raceToManipulate) => {
