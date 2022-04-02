@@ -26,13 +26,13 @@ class CashChart extends React.Component{
             raceData:[{"raceID":"24","raceNr":"1","largeKart":"0","smallKart":"0","doubleKart":"0","raceDate":"2021-11-16 11:37:36"}],
             series: [{
                 name: 'Stora',
-                data: [0],
+                data: [],
               }, {
                 name: 'Små',
-                data: [0],
+                data: [],
               }, {
                 name: 'Dubbla',
-                data: [0],
+                data: [],
               }],
               options: {
                 chart: {
@@ -257,6 +257,13 @@ class CashChart extends React.Component{
         
       };
       async componentDidMount(){
+        await this.state.db.db.sync(this.state.remoteDB).on('complete', function () {
+          alert("Synkat data mot server på uppstart")
+        }).on('error', function (err) {
+          alert("Datan kunde inte synkas på upstart, datan fortsätt lagras lokalt: " + err)
+        });
+
+
         document.addEventListener("keydown", this.keyEventFunction, false);
         this.state.raceData = await this.state.db.getRaceDataDB(this.state.raceData);
         this.updateChart(MyLib.createDatasets(this.state.raceData, this.state.raceToManipulate));
