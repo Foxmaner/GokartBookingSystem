@@ -4,6 +4,7 @@ import * as MyLib from "./myChartLib.js"
 import Button from 'react-bootstrap/Button';
 import PouchDB from 'pouchdb';
 import upsert from 'pouchdb-upsert';
+import Col from 'react-bootstrap/Col';
 PouchDB.plugin(upsert);
 
 import DB from '../db.js'
@@ -295,9 +296,13 @@ class CashChart extends React.Component{
                     height= "90%" 
                     />
                     
-                    <Button variant="primary" onClick={() => {MyLib.printTodayData(this.state.raceData)}}>
+                    <Col className="text-center"></Col>
+                    <Col className="text-center">
+                    <Button className="justify-content-md-center" variant="primary" onClick={() => {MyLib.printTodayData(this.state.raceData)}}>
                       Skriv ut dagens racedata
                     </Button>
+                    </Col>
+                    <Col className="text-center"></Col>
                     
                 </div>   
         );
