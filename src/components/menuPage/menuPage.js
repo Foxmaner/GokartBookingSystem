@@ -9,7 +9,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 class MenuPage extends React.Component {
   render() {
     return (
-      
+
       <Container fluid="lg">
         <Row className="justify-content-md-center mt-5">
           <Col className="d-grid" md="8">
@@ -22,7 +22,7 @@ class MenuPage extends React.Component {
         </Row>
         <Row className="justify-content-md-center mt-5">
           <Col className="d-grid" md="8">
-          <LinkContainer to="/cashier">
+            <LinkContainer to="/cashier">
               <Button variant="primary" size="lg">
                 Kassa
               </Button>
@@ -31,7 +31,7 @@ class MenuPage extends React.Component {
         </Row>
         <Row className="justify-content-md-center mt-5">
           <Col className="d-grid" md="8">
-          <LinkContainer to="/depot">
+            <LinkContainer to="/depot">
               <Button variant="primary" size="lg" disabled>
                 Depå
               </Button>
@@ -40,7 +40,7 @@ class MenuPage extends React.Component {
         </Row>
         <Row className="justify-content-md-center mt-5">
           <Col className="d-grid" md="8">
-          <LinkContainer to="/settings">
+            <LinkContainer to="/settings">
               <Button variant="primary" size="lg" disabled>
                 Inställningar
               </Button>

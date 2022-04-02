@@ -12,11 +12,11 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-function App(){
-    return(
+function App() {
+    return (
         <Router>
             <div className="App">
-                <div className= "Content">
+                <div className="Content">
                     <Switch>
                         <Route path="/analytics">
                             <AnalyticsPage />
@@ -45,4 +45,4 @@ function App(){
 
 
 
-ReactDOM.render(<App/>,document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

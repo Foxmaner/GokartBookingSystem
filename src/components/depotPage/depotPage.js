@@ -8,11 +8,11 @@ import { LinkContainer } from 'react-router-bootstrap'
 class AnalyticsPage extends React.Component {
   render() {
     return (
-      
+
       <Container fluid="lg">
         <Row className="justify-content-md-center mt-5">
           <Col className="d-grid" md="8">
-          <LinkContainer to="/">
+            <LinkContainer to="/">
               <Button variant="primary" size="lg">
                 Depå
               </Button>
