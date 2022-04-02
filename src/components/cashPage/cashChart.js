@@ -68,6 +68,29 @@ class CashChart extends React.Component{
                 legend: {
                     show: false
                   },
+                tooltip: {
+                  enabled: false
+                },
+                states: {
+                  normal: {
+                    filter: {
+                        type: 'none',
+                        value: 0,
+                    }
+                },
+                hover: {
+                  filter: {
+                    type: 'none',
+                    value: 0,
+                }
+                },
+                active: {
+                  filter: {
+                    type: 'none',
+                    value: 0,
+                }
+                },
+                },
                 title: {
                   text: 'Aktuella bokningar'
                 },
