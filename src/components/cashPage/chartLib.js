@@ -47,10 +47,6 @@ export const printTodayData = (raceData) => {
 }
 
 export const createDatasets = (obj, raceToManipulate) => {
-  //console.log("createDatasets() object V ");
-  //console.log("raceTOmanipulate" + raceToManipulate);
-  //console.log("COOLLER" + JSON. stringify(obj))
-
   var dataPack1 = [];
   var dataPack2 = [];
   var dataPack3 = [];
@@ -96,25 +92,6 @@ export const createDatasets = (obj, raceToManipulate) => {
   var dataPackObject = {
     dataPack1, dataPack2, dataPack3, raceNr
   }
-  //console.log("datapack" + JSON.stringify(dataPackObject))
   return dataPackObject
-
-
-
-  /*chart.updateOptions({
-    xaxis: {
-      categories: raceNr
-    },
-  })
-  chart.updateSeries([{
-    name: 'Stora',
-    data: dataPack1
-  }, {
-    name: 'Små',
-    data: dataPack2
-  }, {
-    name: 'Dubbla',
-    data: dataPack3
-  }]);*/
 }
 

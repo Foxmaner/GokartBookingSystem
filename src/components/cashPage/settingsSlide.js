@@ -21,11 +21,6 @@ export default function SettingsSlide(props) {
     //console.log(inputs);
     alert("Sparat. Starta om programmet!")
     await settingsDB.setSyncSettings(inputs);
-
-    //This is how to get the settings
-    //var cooler = await settingsDb.getSettings();
-    //console.log(cooler);
-
   }
 
 
