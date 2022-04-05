@@ -2,6 +2,7 @@ import PouchDB from 'pouchdb';
 import upsert from 'pouchdb-upsert';
 PouchDB.plugin(upsert);
 export default class DB {
+  
   constructor(name) {
     this.db = new PouchDB(name);
   }
@@ -9,11 +10,15 @@ export default class DB {
   async myDeltaFunction(doc) {
     doc.counter = doc.counter || 0;
     doc.counter++;
-    //console.log(doc);
-    //console.log("cooler");
     return doc;
   }
 
+
+  /**
+   * Updates database with new racedata. Uses upsert, which updates and insert new data.
+   * @param  {JSON} raceData The changes that are going to be made
+   * @return  {JSON} todayRaceData Sends back new data
+   */
   async updateRace(raceData) {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -27,52 +32,18 @@ export default class DB {
       raceDataField: raceData,
       counter: 0,
     }
-    //console.log("updateRaceData");
-    //const todayRaceData = await this.db.get(today);
     var todayRaceData = doc;
-    /* try {
-         todayRaceData = await this.db.get(today);
-         console.log(todayRaceData);
-       } catch (err) {
-         if (err.name === 'not_found') {
-           const todayRaceDataNew = await this.db.post(doc);
-           console.log("OLÄMPLIG");
-           return todayRaceDataNew;
 
-         } else {
-           throw err; // some error other than 404
-         }
-       }
-*/
-    /* this.db.upsert(today, this.myDeltaFunction(doc)).then(function () {
-       // success!
-     }).catch(function (err) {
-       // error (not a 404 or 409)
-     });
-     */
     this.db.upsert(today, function (doc) {
       doc.raceDataField = raceData;
       //doc.count++;
       return doc;
     }).then(function (res) {
-      // success, res is {rev: '1-xxx', updated: true, id: 'myDocId'}
-      //console.log(res);
+
+
     }).catch(function (err) {
       // error
     });
-    // console.log(doc);
-
-
-
-
-    //console.log(todayRaceData);
-    //todayRaceData.raceDataField = raceData
-    //const del = await this.db.remove(todayRaceData);
-
-
-
-
-    //const res = await this.db.post(raceData);
 
     return todayRaceData;
   }
@@ -85,41 +56,43 @@ export default class DB {
 
     today = dd + '/' + mm + '/' + yyyy;
 
-
-
     var todayRaceData = await this.db.get(today);
-    //console.log("return");
-    //console.log(todayRaceData.raceDataField);
+
     todayRaceData = todayRaceData.raceDataField;
     return todayRaceData
   }
 
+
+  /**
+  * Updates database with new settings. Uses upsert, which updates and insert new data.
+  * @param  {JSON} settings The changes that are going to be made
+  * @return  None
+  */
   async setSyncSettings(settings) {
 
     this.db.upsert("settings", function (doc) {
       doc.syncServerSettings = settings;
-      //doc.count++;
+
       return doc;
     }).then(function (res) {
-      // success, res is {rev: '1-xxx', updated: true, id: 'myDocId'}
+
       console.log(res);
     }).catch(function (err) {
-      // error
+
       console.log(error);
     });
 
   }
+
+  /**
+   * Updates database with new settings. Uses upsert, which updates and insert new data.
+   * @param  None
+   * @return  {JSON} settings.syncServerSettings The current settings
+   */
   async getSyncSettings() {
     var settings = await this.db.get("settings");
-    //console.log("return");
-    //console.log(settings.syncServerSettings);
-    //syncSettings = syncSettings.settings;
+
     return settings.syncServerSettings
 
   }
-
-
-
-
-
 }
