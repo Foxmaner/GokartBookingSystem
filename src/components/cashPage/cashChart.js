@@ -164,86 +164,61 @@ class CashChart extends React.Component {
   };
 
   editRaceData(raceToManipulate, raceData, kartType, action) {
-
     if (action == "add") {
-
-
       if (kartType == "large") {
-
         this.state.raceData[raceToManipulate].largeKart = '' + (parseInt(this.state.raceData[raceToManipulate].largeKart) + 1);
-
       } else if (kartType == "smal") {
-
         this.state.raceData[raceToManipulate].smallKart = '' + (parseInt(this.state.raceData[raceToManipulate].smallKart) + 1);
       } else if (kartType == "double") {
-
         this.state.raceData[raceToManipulate].doubleKart = '' + (parseInt(this.state.raceData[raceToManipulate].doubleKart) + 1);
       }
     } else if (action == "remove") {
-
       if (kartType == "large") {
-
         this.state.raceData[raceToManipulate].largeKart = '' + (parseInt(this.state.raceData[raceToManipulate].largeKart) - 1);
-
       } else if (kartType == "smal") {
-
         this.state.raceData[raceToManipulate].smallKart = '' + (parseInt(this.state.raceData[raceToManipulate].smallKart) - 1);
       } else if (kartType == "double") {
-
         this.state.raceData[raceToManipulate].doubleKart = '' + (parseInt(this.state.raceData[raceToManipulate].doubleKart) - 1);
       }
     }
-
   }
 
 
   async keyEventFunction(event) {
-
-
     //Dont listen if settings are open
     if (document.activeElement.id != "mainBody") { return }
     if (event.repeat) { return }
     clearTimeout(this.state.timeout);
     if (event.keyCode === 27) {
-
       this.state.raceData = await this.state.db.getRaceDataDB(this.state.raceData);
-
     } else if (event.keyCode === 37 && this.state.raceToManipulate > 0) {
       this.state.raceToManipulate--
-
       if (typeof this.state.raceData[this.state.raceToManipulate] == 'undefined') {
         this.state.raceData[this.state.raceToManipulate] = { "raceID": "24", "raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }
       }
     } else if (event.keyCode === 39) {
       this.state.raceToManipulate++
-
       if (typeof this.state.raceData[this.state.raceToManipulate] == 'undefined') {
         this.state.raceData[this.state.raceToManipulate] = { "raceID": "24", "raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }
       }
     } else if (event.keyCode === 81 && this.state.raceData[this.state.raceToManipulate].largeKart > 0 && this.state.raceData[this.state.raceToManipulate].largeKart <= 10) {
       this.state.raceToManipulateLargeKarts--
       this.editRaceData(this.state.raceToManipulate, this.state.raceData, "large", "remove");
-
     } else if (event.keyCode === 87 && this.state.raceData[this.state.raceToManipulate].largeKart >= 0 && this.state.raceData[this.state.raceToManipulate].largeKart < 10) {
       this.state.raceToManipulateLargeKarts++
       this.editRaceData(this.state.raceToManipulate, this.state.raceData, "large", "add");
-
     } else if (event.keyCode === 65 && this.state.raceData[this.state.raceToManipulate].smallKart > 0 && this.state.raceData[this.state.raceToManipulate].smallKart <= 6) {
       this.state.raceToManipulateSmalKarts--
       this.editRaceData(this.state.raceToManipulate, this.state.raceData, "smal", "remove");
-
     } else if (event.keyCode === 83 && this.state.raceData[this.state.raceToManipulate].smallKart >= 0 && this.state.raceData[this.state.raceToManipulate].smallKart < 6) {
       this.state.raceToManipulateSmalKarts++
       this.editRaceData(this.state.raceToManipulate, this.state.raceData, "smal", "add");
-
     } else if (event.keyCode === 90 && this.state.raceData[this.state.raceToManipulate].doubleKart > 0 && this.state.raceData[this.state.raceToManipulate].doubleKart <= 2) {
       this.state.raceToManipulateDoubleKarts--
       this.editRaceData(this.state.raceToManipulate, this.state.raceData, "double", "remove");
-
     } else if (event.keyCode === 88 && this.state.raceData[this.state.raceToManipulate].doubleKart >= 0 && this.state.raceData[this.state.raceToManipulate].doubleKart < 2) {
       this.state.raceToManipulateDoubleKarts++
       this.editRaceData(this.state.raceToManipulate, this.state.raceData, "double", "add");
-
     };
 
     this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart);
