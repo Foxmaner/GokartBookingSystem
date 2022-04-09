@@ -23,6 +23,7 @@ class CashChart extends React.Component {
       raceToManipulateLargeKarts: 0,
       raceToManipulateSmalKarts: 0,
       raceToManipulateDoubleKarts: 0,
+      currentRaceNr:0,
       raceData: [{ "raceID": "24", "raceNr": "1", "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }],
       series: [{
         name: 'Stora',
@@ -222,6 +223,12 @@ class CashChart extends React.Component {
     } else if (event.keyCode === 88 && this.state.raceData[this.state.raceToManipulate].doubleKart >= 0 && this.state.raceData[this.state.raceToManipulate].doubleKart < 2) {
       this.state.raceToManipulateDoubleKarts++
       this.editRaceData(this.state.raceToManipulate, this.state.raceData, "double", "add");
+    }else if (event.keyCode === 38 && this.state.currentRaceNr <= this.state.raceData.length) {
+      this.setState({currentRaceNr:this.state.currentRaceNr+1})
+      console.log("CurrentRaceNr =" + this.state.currentRaceNr)
+    }else if (event.keyCode === 40 && this.state.currentRaceNr <= 0) {
+      this.setState({currentRaceNr:this.state.currentRaceNr-1})
+      console.log("CurrentRaceNr =" + this.state.currentRaceNr)
     };
 
     this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart);
