@@ -160,9 +160,29 @@ class CashChart extends React.Component {
         xaxis: {
           categories: dataSet4,
         },
+        annotations: {
+          xaxis: [{
+            x: this.state.currentRaceNr,
+            borderColor: "red",
+            label: {
+              orientation: 'horizontal',
+              offsetY: 0,
+              style: {
+                color: "#fff",
+                background: "red"
+              },
+              text: 'Aktuellt race',
+            }
+          }]
+        },
       },
+      
     })
   };
+
+  async editCurrentRaceNr(newCurrentRaceNr){
+    await this.state.db.setCurrentRaceNrDB(newCurrentRaceNr);
+  }
 
   editRaceData(raceToManipulate, raceData, kartType, action) {
     if (action == "add") {
@@ -223,14 +243,14 @@ class CashChart extends React.Component {
     } else if (event.keyCode === 88 && this.state.raceData[this.state.raceToManipulate].doubleKart >= 0 && this.state.raceData[this.state.raceToManipulate].doubleKart < 2) {
       this.state.raceToManipulateDoubleKarts++
       this.editRaceData(this.state.raceToManipulate, this.state.raceData, "double", "add");
-    }else if (event.keyCode === 38 && this.state.currentRaceNr <= this.state.raceData.length) {
-      this.setState({currentRaceNr:this.state.currentRaceNr+1})
-      console.log("CurrentRaceNr =" + this.state.currentRaceNr)
-    }else if (event.keyCode === 40 && this.state.currentRaceNr <= 0) {
-      this.setState({currentRaceNr:this.state.currentRaceNr-1})
-      console.log("CurrentRaceNr =" + this.state.currentRaceNr)
+    }else if (event.keyCode === 38 && this.state.currentRaceNr < this.state.raceData.length) {
+      this.setState({currentRaceNr:(this.state.currentRaceNr+1)})
+      await this.editCurrentRaceNr(this.state.currentRaceNr);
+    }else if (event.keyCode === 40 && this.state.currentRaceNr > 0) {
+      this.setState({currentRaceNr:(this.state.currentRaceNr-1)})
+      await this.editCurrentRaceNr(this.state.currentRaceNr);
     };
-
+    console.log("CurrentRaceNr =" + this.state.currentRaceNr)
     this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart);
     const self = this;
     if (this.state.timeout) {
@@ -280,6 +300,7 @@ class CashChart extends React.Component {
         <Chart
           options={this.state.options}
           series={this.state.series}
+          annotations={this.state.annotations}
           type="bar"
           width="100%"
           height="90%"

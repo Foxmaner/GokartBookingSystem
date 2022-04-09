@@ -32,7 +32,7 @@ export default class DB {
       raceDataField: raceData,
       counter: 0,
     }
-
+    var todayRaceData = doc;
 
     this.db.upsert(today, function (doc) {
       doc.raceDataField = raceData;
@@ -88,29 +88,19 @@ export default class DB {
 
     today = dd + '/' + mm + '/' + yyyy;
 
-    var doc = {
-      _id: today,
-      raceDataField: raceData,
-      counter: 0,
-    }
-
 
     this.db.upsert(today, function (doc) {
-      doc.raceDataField = raceData;
-      //doc.count++;
-
       doc.currentRaceNr = raceNr;
-      console.log("Added currentRaceNr");
 
       return doc;
     }).then(function (res) {
 
-
+      console.log(res);
     }).catch(function (err) {
-      // error
+
+      console.log(error);
     });
-    var todayRaceData = doc;
-    return todayRaceData;
+
   }
 
 

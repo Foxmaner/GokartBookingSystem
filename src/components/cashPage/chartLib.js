@@ -68,9 +68,11 @@ export const createDatasets = (obj, raceToManipulate) => {
   } else {
     var raceNrToPick = raceToManipulate - 5
     for (var i = 0; i < 11; i++) {
+      /*
       console.log(raceNrToPick)
       console.log("cool" + JSON.stringify(obj))
       console.log(dataPack1[raceNrToPick])
+      */
       if (obj[raceNrToPick] === undefined || obj[raceNrToPick] == null) {
         dataPack1[i] = 0;
         dataPack2[i] = 0;
