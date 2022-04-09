@@ -188,6 +188,9 @@ class CashChart extends React.Component {
     //Dont listen if settings are open
     if (document.activeElement.id != "mainBody") { return }
     if (event.repeat) { return }
+    console.log(this.state.raceData)
+    var cooler= await this.state.db.getCurrentRaceNrDB();
+    console.log(cooler)
     clearTimeout(this.state.timeout);
     if (event.keyCode === 27) {
       this.state.raceData = await this.state.db.getRaceDataDB(this.state.raceData);

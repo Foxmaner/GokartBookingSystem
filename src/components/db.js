@@ -2,7 +2,7 @@ import PouchDB from 'pouchdb';
 import upsert from 'pouchdb-upsert';
 PouchDB.plugin(upsert);
 export default class DB {
-  
+
   constructor(name) {
     this.db = new PouchDB(name);
   }
@@ -32,11 +32,15 @@ export default class DB {
       raceDataField: raceData,
       counter: 0,
     }
-    var todayRaceData = doc;
+
 
     this.db.upsert(today, function (doc) {
       doc.raceDataField = raceData;
       //doc.count++;
+      if (!doc.hasOwnProperty('currentRaceNr')) {
+        doc.currentRaceNr = 0;
+        console.log("Added default currentRaceNr");
+      }
       return doc;
     }).then(function (res) {
 
@@ -44,7 +48,7 @@ export default class DB {
     }).catch(function (err) {
       // error
     });
-
+    var todayRaceData = doc;
     return todayRaceData;
   }
 
@@ -60,6 +64,53 @@ export default class DB {
 
     todayRaceData = todayRaceData.raceDataField;
     return todayRaceData
+  }
+
+  async getCurrentRaceNrDB() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '/' + mm + '/' + yyyy;
+
+    var todayRaceData = await this.db.get(today);
+    var todayCurrentRaceNr = todayRaceData.currentRaceNr;
+    return todayCurrentRaceNr
+  }
+
+
+  async setCurrentRaceNrDB(raceNr) {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '/' + mm + '/' + yyyy;
+
+    var doc = {
+      _id: today,
+      raceDataField: raceData,
+      counter: 0,
+    }
+
+
+    this.db.upsert(today, function (doc) {
+      doc.raceDataField = raceData;
+      //doc.count++;
+
+      doc.currentRaceNr = raceNr;
+      console.log("Added currentRaceNr");
+
+      return doc;
+    }).then(function (res) {
+
+
+    }).catch(function (err) {
+      // error
+    });
+    var todayRaceData = doc;
+    return todayRaceData;
   }
 
 
