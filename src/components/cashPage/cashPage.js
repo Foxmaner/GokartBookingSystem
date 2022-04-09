@@ -18,6 +18,7 @@ class AnalyticsPage extends React.Component {
     super(props)
     this.CurrentRaceToManipulateOutput = this.CurrentRaceToManipulateOutput.bind(this)
     this.state = {
+      raceDB: new DB("RaceDataDB"),
       isValid: true,
       syncErrorMessage: "",
       settingsDB: new DB("SettingsDB"),
@@ -29,7 +30,6 @@ class AnalyticsPage extends React.Component {
 
 
   CurrentRaceToManipulateOutput(raceNr, largeKarts, smallKarts, doubleKarts) {
-    //console.log("monkey" + largeKarts);
     this.setState({
       CurrentRaceToManipulateOutput: raceNr,
       CurrentRaceLarge: largeKarts,
@@ -69,8 +69,6 @@ class AnalyticsPage extends React.Component {
     var doubleKartsList = [1, 2, 1, 1, 2, 2, 1, 2, 1, 1, 1]
     var xAxisList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
-    //MyLib.Funct1();
-
     return (
       <Container className="app bg-light shadow-5-strong" >
         <Row className="justify-content-md-center mt-5">
@@ -105,7 +103,7 @@ class AnalyticsPage extends React.Component {
         <Row className="justify-content-md-center" >
           <Col className="d-grid" md="8" style={{ height: "50vh" }}>
 
-            <CashChart largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList} CurrentRaceToManipulateOutput={this.CurrentRaceToManipulateOutput} setSyncStatus={this.setSyncStatus} />
+            <CashChart largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList} CurrentRaceToManipulateOutput={this.CurrentRaceToManipulateOutput} setSyncStatus={this.setSyncStatus} raceDatabase={this.state.raceDB}/>
 
           </Col>
         </Row>
