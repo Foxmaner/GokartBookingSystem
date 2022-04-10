@@ -24,7 +24,7 @@ class CashChart extends React.Component {
       raceToManipulateSmalKarts: 0,
       raceToManipulateDoubleKarts: 0,
       currentRaceNr:0,
-      raceData: [{ "raceID": "24", "raceNr": "1", "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }],
+      raceData: [{"raceNr": "1", "largeKart": "0", "smallKart": "0", "doubleKart": "0"}],
       series: [{
         name: 'Stora',
         data: [],
@@ -218,12 +218,12 @@ class CashChart extends React.Component {
     } else if (event.keyCode === 37 && this.state.raceToManipulate > 0) {
       this.state.raceToManipulate--
       if (typeof this.state.raceData[this.state.raceToManipulate] == 'undefined') {
-        this.state.raceData[this.state.raceToManipulate] = { "raceID": "24", "raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }
+        this.state.raceData[this.state.raceToManipulate] = {"raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0"}
       }
     } else if (event.keyCode === 39) {
       this.state.raceToManipulate++
       if (typeof this.state.raceData[this.state.raceToManipulate] == 'undefined') {
-        this.state.raceData[this.state.raceToManipulate] = { "raceID": "24", "raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }
+        this.state.raceData[this.state.raceToManipulate] = {"raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0"}
       }
     } else if (event.keyCode === 81 && this.state.raceData[this.state.raceToManipulate].largeKart > 0 && this.state.raceData[this.state.raceToManipulate].largeKart <= 10) {
       this.state.raceToManipulateLargeKarts--
