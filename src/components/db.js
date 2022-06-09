@@ -131,7 +131,13 @@ export default class DB {
    * @return  {JSON} settings.syncServerSettings The current settings
    */
   async getSyncSettings() {
-    var settings = await this.db.get("settings");
+    try{
+      var settings = await this.db.get("settings");
+    }catch(error){
+      //TODO. Return a empty settingsFile!!!
+      console.log("getSyncSettings Error: " + error)
+      return "";
+    }
 
     return settings.syncServerSettings
 
