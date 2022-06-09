@@ -73,10 +73,16 @@ export default class DB {
     var yyyy = today.getFullYear();
 
     today = dd + '/' + mm + '/' + yyyy;
-
-    var todayRaceData = await this.db.get(today);
+    try {
+      var todayRaceData = await this.db.get(today);
     var todayCurrentRaceNr = todayRaceData.currentRaceNr;
-    return todayCurrentRaceNr
+    return todayCurrentRaceNr  
+    } catch (error) {
+      console.log("getCurrentRacenrDB error" + error)
+      this.updateRace()
+      return
+    }
+    
   }
 
 
