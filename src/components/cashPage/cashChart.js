@@ -277,10 +277,12 @@ class CashChart extends React.Component {
 
   };
   async componentDidMount() {
+    const self = this;
     await this.state.db.db.sync(this.state.remoteDB).on('complete', function () {
 
     }).on('error', function (err) {
-      alert("Datan kunde inte synkas på upstart, datan fortsätt lagras lokalt: " + err)
+      alert("Datan kunde inte synkas på upstart, datan fortsätt lagras lokalt: " + err);
+      self.props.setSyncStatus(false, JSON.stringify(err))
     });
     document.addEventListener("keydown", this.keyEventFunction, false);
     this.state.raceData = await this.state.db.getRaceDataDB(this.state.raceData);
