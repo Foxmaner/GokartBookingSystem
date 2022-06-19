@@ -107,26 +107,26 @@ class AnalyticsPage extends React.Component {
           <Col className="text-center" style={{ fontSize: "5vh" }}>{this.state.CurrentRaceDouble || 0}</Col>
         </Row>
         <Row className="justify-content-md-center" style={{ height: "50vh" }}>
-        <Col className="d-grid" md="2">
-          
+          <Col className="d-grid" md="2">
+
           </Col>
           <Col className="d-grid" md="8">
 
-            <CashChart largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList} CurrentRaceToManipulateOutput={this.CurrentRaceToManipulateOutput} setSyncStatus={this.setSyncStatus} raceDatabase={this.state.raceDB}/>
+            <CashChart largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList} CurrentRaceToManipulateOutput={this.CurrentRaceToManipulateOutput} setSyncStatus={this.setSyncStatus} raceDatabase={this.state.raceDB} />
 
           </Col>
           <Col md="2">
             <Col>{"Nästa lopp: "}{this.state.nextRaceNr || 0}</Col>
             <Col>{"(Stora/Små/Dubbla)"}</Col>
-            <Col>{this.state.nextRaceLarge || "Null"}{"/"}{this.state.nextRaceSmall || "Null" }{"/"}{this.state.nextRaceDouble || "Null"}</Col>
+            <Col>{this.state.nextRaceLarge || "Null"}{"/"}{this.state.nextRaceSmall || "Null"}{"/"}{this.state.nextRaceDouble || "Null"}</Col>
           </Col>
         </Row>
         <Row className="justify-content-md-center" style={{ fontSize: "5vh", height: "5vh" }}>
           <Col className="d-grid" md="8">
-          <SettingsSlide settings={this.state.settings} ></SettingsSlide>
+            <SettingsSlide settings={this.state.settings} ></SettingsSlide>
           </Col>
         </Row>
-        
+
       </Container>
 
     );

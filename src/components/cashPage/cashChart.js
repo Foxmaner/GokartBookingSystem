@@ -23,7 +23,7 @@ class CashChart extends React.Component {
       raceToManipulateLargeKarts: 0,
       raceToManipulateSmalKarts: 0,
       raceToManipulateDoubleKarts: 0,
-      currentRaceNr:0,
+      currentRaceNr: 0,
       raceData: [{ "raceID": "24", "raceNr": "1", "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }],
       series: [{
         name: 'Stora',
@@ -42,7 +42,7 @@ class CashChart extends React.Component {
           stacked: true,
           toolbar: {
             show: false,
-        },
+          },
           zoom: {
             enabled: false
           },
@@ -170,9 +170,9 @@ class CashChart extends React.Component {
                 click: function (chart, options, e) {
                   MyLib.printTodayData(self.state.raceData);
                 }
-                }]
+              }]
+            },
           },
-        },
         },
         xaxis: {
           categories: dataSet4,
@@ -193,11 +193,11 @@ class CashChart extends React.Component {
           }]
         },
       },
-      
+
     })
   };
 
-  async editCurrentRaceNr(newCurrentRaceNr){
+  async editCurrentRaceNr(newCurrentRaceNr) {
     await this.state.db.setCurrentRaceNrDB(newCurrentRaceNr);
   }
 
@@ -227,7 +227,7 @@ class CashChart extends React.Component {
     if (document.activeElement.id != "mainBody") { return }
     if (event.repeat) { return }
     console.log(this.state.raceData)
-    var cooler= await this.state.db.getCurrentRaceNrDB();
+    var cooler = await this.state.db.getCurrentRaceNrDB();
     console.log(cooler)
     clearTimeout(this.state.timeout);
     if (event.keyCode === 27) {
@@ -260,11 +260,11 @@ class CashChart extends React.Component {
     } else if (event.keyCode === 88 && this.state.raceData[this.state.raceToManipulate].doubleKart >= 0 && this.state.raceData[this.state.raceToManipulate].doubleKart < 2) {
       this.state.raceToManipulateDoubleKarts++
       this.editRaceData(this.state.raceToManipulate, this.state.raceData, "double", "add");
-    }else if (event.keyCode === 38 && this.state.currentRaceNr < this.state.raceData.length) {
-      this.setState({currentRaceNr:(this.state.currentRaceNr+1)})
+    } else if (event.keyCode === 38 && this.state.currentRaceNr < this.state.raceData.length) {
+      this.setState({ currentRaceNr: (this.state.currentRaceNr + 1) })
       await this.editCurrentRaceNr(this.state.currentRaceNr);
-    }else if (event.keyCode === 40 && this.state.currentRaceNr > 0) {
-      this.setState({currentRaceNr:(this.state.currentRaceNr-1)})
+    } else if (event.keyCode === 40 && this.state.currentRaceNr > 0) {
+      this.setState({ currentRaceNr: (this.state.currentRaceNr - 1) })
       await this.editCurrentRaceNr(this.state.currentRaceNr);
     };
     console.log("CurrentRaceNr =" + this.state.currentRaceNr)
