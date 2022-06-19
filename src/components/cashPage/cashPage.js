@@ -87,29 +87,32 @@ class AnalyticsPage extends React.Component {
               Error -- {this.state.syncErrorMessage}</Alert>
           }
         </Row>
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-md-center" style={{ height: "7vh" }}>
           <Col className="text-center" id="largeKartOutput" style={{ fontSize: "7vh" }}>Race: {this.state.CurrentRaceToManipulateOutput + 1 || 1}</Col>
         </Row>
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-md-center" style={{ height: "5vh" }}>
           <Col className="text-center" id="largeKartOutput" style={{ fontSize: "5vh" }}>Stora</Col>
           <Col className="text-center" id="smallKartOutput" style={{ fontSize: "5vh" }}>Små</Col>
           <Col className="text-center" id="doubleKartOutput" style={{ fontSize: "5vh" }}>Dubbla</Col>
         </Row>
-        <Row className="justify-content-md-center">
+        <Row className="justify-content-md-center" style={{ height: "5vh" }}>
           <Col className="text-center" style={{ fontSize: "5vh" }}>{this.state.CurrentRaceLarge || 0}</Col>
           <Col className="text-center" style={{ fontSize: "5vh" }}>{this.state.CurrentRaceSmall || 0}</Col>
           <Col className="text-center" style={{ fontSize: "5vh" }}>{this.state.CurrentRaceDouble || 0}</Col>
         </Row>
-        <Row className="justify-content-md-center" >
-          <Col className="d-grid" md="8" style={{ height: "50vh" }}>
+        <Row className="justify-content-md-center" style={{ height: "50vh" }}>
+          <Col className="d-grid" md="8">
 
             <CashChart largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList} CurrentRaceToManipulateOutput={this.CurrentRaceToManipulateOutput} setSyncStatus={this.setSyncStatus} raceDatabase={this.state.raceDB}/>
 
           </Col>
         </Row>
-        <Row className="justify-content-md-center" >
-          <SettingsSlide settings={this.state.settings}></SettingsSlide>
+        <Row className="justify-content-md-center" style={{ fontSize: "5vh", height: "5vh" }}>
+          <Col className="d-grid" md="8">
+          <SettingsSlide settings={this.state.settings} ></SettingsSlide>
+          </Col>
         </Row>
+        
       </Container>
 
     );
