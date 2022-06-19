@@ -21,7 +21,7 @@ function App() {
                         <Route path="/analytics">
                             <AnalyticsPage />
                         </Route>
-                        <Route path="/cashier">
+                        <Route path="/">
                             <CashPage />
                         </Route>
                         <Route path="/depot">
@@ -30,7 +30,7 @@ function App() {
                         <Route path="/settings">
                             <SettingsPage />
                         </Route>
-                        <Route path="/">
+                        <Route path="/d">
                             <MenuPage />
                         </Route>
                     </Switch>

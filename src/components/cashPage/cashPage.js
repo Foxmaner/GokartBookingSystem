@@ -11,6 +11,9 @@ import CashChart from "./cashChart.js"
 import { LinkContainer } from 'react-router-bootstrap'
 import SettingsSlide from "./settingsSlide.js"
 import DB from "../db";
+import Form from "react-bootstrap/Form"
+import InputGroup from "react-bootstrap/InputGroup"
+import FloatingLabel from "react-bootstrap/FloatingLabel"
 
 
 class AnalyticsPage extends React.Component {
@@ -25,6 +28,7 @@ class AnalyticsPage extends React.Component {
       settings: ""
     }
     this.setSyncStatus = this.setSyncStatus.bind(this);
+    this.afterSubmission = this.afterSubmission.bind(this);
   };
 
 
@@ -66,6 +70,17 @@ class AnalyticsPage extends React.Component {
     this.setState({ settings: cooler })
   }
 
+  afterSubmission(event) {
+    event.preventDefault();
+    let form = event.target
+    
+    let formData = {diffLargeKarts:form.inputLargeKarts.value,
+       diffSmallKarts:form.inputSmallKarts.value,
+        diffDoubleKarts:form.inputDoubleKarts.value,
+        deleteMode:form.isDeleteMode.checked};
+   
+  }
+
 
 
   render() {
@@ -93,18 +108,90 @@ class AnalyticsPage extends React.Component {
               Error -- {this.state.syncErrorMessage}</Alert>
           }
         </Row>
-        <Row className="justify-content-md-center" style={{ height: "7vh" }}>
+        <Row className="justify-content-md-center">
           <Col className="text-center" id="largeKartOutput" style={{ fontSize: "7vh" }}>Race: {this.state.CurrentRaceToManipulateOutput + 1 || 1}</Col>
         </Row>
-        <Row className="justify-content-md-center" style={{ height: "5vh" }}>
-          <Col className="text-center" id="largeKartOutput" style={{ fontSize: "5vh" }}>Stora</Col>
-          <Col className="text-center" id="smallKartOutput" style={{ fontSize: "5vh" }}>Små</Col>
-          <Col className="text-center" id="doubleKartOutput" style={{ fontSize: "5vh" }}>Dubbla</Col>
-        </Row>
-        <Row className="justify-content-md-center" style={{ height: "5vh" }}>
-          <Col className="text-center" style={{ fontSize: "5vh" }}>{this.state.CurrentRaceLarge || 0}</Col>
-          <Col className="text-center" style={{ fontSize: "5vh" }}>{this.state.CurrentRaceSmall || 0}</Col>
-          <Col className="text-center" style={{ fontSize: "5vh" }}>{this.state.CurrentRaceDouble || 0}</Col>
+        <Row className="justify-content-md-center">
+          <Form onSubmit = {this.afterSubmission}>
+            <Row>
+
+              <InputGroup className="mb-3">
+                <Col md>
+                  <FloatingLabel controlId="floatingSelect" label="Antal stora">
+                    <Form.Select aria-label="Antal Stora" name="inputLargeKarts" ref="inputLargeKarts">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                    </Form.Select>
+                  </FloatingLabel>
+                </Col>
+
+                <Col md>
+                  <FloatingLabel controlId="floatingSelect" label="Antal stora">
+                    <Form.Select aria-label="Antal Små" name="inputSmallKarts" ref="inputSmallKarts">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                    </Form.Select>
+                  </FloatingLabel>
+                </Col>
+
+                <Col md>
+                  <FloatingLabel controlId="floatingSelect" label="Antal stora">
+                    <Form.Select aria-label="Antal Dubbla" name="inputDoubleKarts" ref="inputDoubleKarts">
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                    </Form.Select>
+                  </FloatingLabel>
+                </Col>
+
+              </InputGroup>
+
+            </Row>
+
+
+
+
+            <Row>
+
+              <InputGroup className="mb-3">
+                <Col md>
+                  <Form.Check
+                  
+                    type="switch"
+                    id="custom-switch"
+                    label="Delete mode (Tar bort specificerat antal)"
+                    name="isDeleteMode" ref="isDeleteMode"
+                  />
+                </Col>
+
+                <Col md>
+                  <Button type="submit">Lägg till ändringar</Button>
+                </Col>
+
+                <Col md>
+                <Button type="reset" value="Reset" variant="danger">Ta bort inputs</Button>
+                </Col>
+
+              </InputGroup>
+
+            </Row>
+
+
+          </Form>
         </Row>
         <Row className="justify-content-md-center" style={{ height: "50vh" }}>
           <Col className="d-grid" md="2">
