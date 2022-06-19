@@ -41,8 +41,8 @@ class CashChart extends React.Component {
           height: 350,
           stacked: true,
           toolbar: {
-            show: false
-          },
+            show: false,
+        },
           zoom: {
             enabled: false
           },
@@ -141,6 +141,7 @@ class CashChart extends React.Component {
 
 
   updateChart(dataSets) {
+    const self = this;
     var dataSet1 = dataSets.dataPack1;
     var dataSet2 = dataSets.dataPack2;
     var dataSet3 = dataSets.dataPack3;
@@ -157,6 +158,22 @@ class CashChart extends React.Component {
         data: dataSet3,
       }],
       options: {
+        chart: {
+          toolbar: {
+            show: true,
+            tools: {
+              customIcons: [{
+                icon: '<img src="assets/appPictures/printIcon.png" width="20">',
+                index: 1,
+                title: 'tooltip of the icon',
+                class: 'custom-icon',
+                click: function (chart, options, e) {
+                  MyLib.printTodayData(self.state.raceData);
+                }
+                }]
+          },
+        },
+        },
         xaxis: {
           categories: dataSet4,
         },
@@ -305,16 +322,8 @@ class CashChart extends React.Component {
           annotations={this.state.annotations}
           type="bar"
           width="100%"
-          height="90%"
+          height="100%"
         />
-
-        <Col className="text-center"></Col>
-        <Col className="text-center">
-          <Button className="justify-content-md-center" variant="primary" onClick={() => { MyLib.printTodayData(this.state.raceData) }}>
-            Skriv ut dagens racedata
-          </Button>
-        </Col>
-        <Col className="text-center"></Col>
 
       </div>
     );
