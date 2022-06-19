@@ -268,7 +268,7 @@ class CashChart extends React.Component {
       await this.editCurrentRaceNr(this.state.currentRaceNr);
     };
     console.log("CurrentRaceNr =" + this.state.currentRaceNr)
-    this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart);
+    this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart, this.state.raceData[this.state.currentRaceNr]);
     const self = this;
     if (this.state.timeout) {
       clearTimeout(this.state.timeout);
