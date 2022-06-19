@@ -78,6 +78,8 @@ class AnalyticsPage extends React.Component {
        diffSmallKarts:form.inputSmallKarts.value,
         diffDoubleKarts:form.inputDoubleKarts.value,
         deleteMode:form.isDeleteMode.checked};
+
+    event.target.reset();
    
   }
 
