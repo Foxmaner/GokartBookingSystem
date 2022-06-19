@@ -2,7 +2,7 @@ import PouchDB from 'pouchdb';
 import upsert from 'pouchdb-upsert';
 PouchDB.plugin(upsert);
 export default class DB {
-  
+
   constructor(name) {
     this.db = new PouchDB(name);
   }
@@ -37,6 +37,10 @@ export default class DB {
     this.db.upsert(today, function (doc) {
       doc.raceDataField = raceData;
       //doc.count++;
+      if (!doc.hasOwnProperty('currentRaceNr')) {
+        doc.currentRaceNr = 0;
+        console.log("Added default currentRaceNr");
+      }
       return doc;
     }).then(function (res) {
 
@@ -44,7 +48,7 @@ export default class DB {
     }).catch(function (err) {
       // error
     });
-
+    var todayRaceData = doc;
     return todayRaceData;
   }
 
@@ -60,6 +64,49 @@ export default class DB {
 
     todayRaceData = todayRaceData.raceDataField;
     return todayRaceData
+  }
+
+  async getCurrentRaceNrDB() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '/' + mm + '/' + yyyy;
+    try {
+      var todayRaceData = await this.db.get(today);
+    var todayCurrentRaceNr = todayRaceData.currentRaceNr;
+    return todayCurrentRaceNr  
+    } catch (error) {
+      console.log("getCurrentRacenrDB error" + error)
+      this.updateRace()
+      return
+    }
+    
+  }
+
+
+  async setCurrentRaceNrDB(raceNr) {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '/' + mm + '/' + yyyy;
+
+
+    this.db.upsert(today, function (doc) {
+      doc.currentRaceNr = raceNr;
+
+      return doc;
+    }).then(function (res) {
+
+      console.log(res);
+    }).catch(function (err) {
+
+      console.log(error);
+    });
+
   }
 
 

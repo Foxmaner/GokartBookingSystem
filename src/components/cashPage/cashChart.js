@@ -23,6 +23,7 @@ class CashChart extends React.Component {
       raceToManipulateLargeKarts: 0,
       raceToManipulateSmalKarts: 0,
       raceToManipulateDoubleKarts: 0,
+      currentRaceNr:0,
       raceData: [{ "raceID": "24", "raceNr": "1", "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }],
       series: [{
         name: 'Stora',
@@ -40,8 +41,8 @@ class CashChart extends React.Component {
           height: 350,
           stacked: true,
           toolbar: {
-            show: false
-          },
+            show: false,
+        },
           zoom: {
             enabled: false
           },
@@ -140,6 +141,7 @@ class CashChart extends React.Component {
 
 
   updateChart(dataSets) {
+    const self = this;
     var dataSet1 = dataSets.dataPack1;
     var dataSet2 = dataSets.dataPack2;
     var dataSet3 = dataSets.dataPack3;
@@ -156,12 +158,48 @@ class CashChart extends React.Component {
         data: dataSet3,
       }],
       options: {
+        chart: {
+          toolbar: {
+            show: true,
+            tools: {
+              customIcons: [{
+                icon: '<img src="assets/appPictures/printIcon.png" width="20">',
+                index: 1,
+                title: 'tooltip of the icon',
+                class: 'custom-icon',
+                click: function (chart, options, e) {
+                  MyLib.printTodayData(self.state.raceData);
+                }
+                }]
+          },
+        },
+        },
         xaxis: {
           categories: dataSet4,
         },
+        annotations: {
+          xaxis: [{
+            x: this.state.currentRaceNr,
+            borderColor: "red",
+            label: {
+              orientation: 'horizontal',
+              offsetY: 0,
+              style: {
+                color: "#fff",
+                background: "red"
+              },
+              text: 'Aktuellt race',
+            }
+          }]
+        },
       },
+      
     })
   };
+
+  async editCurrentRaceNr(newCurrentRaceNr){
+    await this.state.db.setCurrentRaceNrDB(newCurrentRaceNr);
+  }
 
   editRaceData(raceToManipulate, raceData, kartType, action) {
     if (action == "add") {
@@ -188,6 +226,9 @@ class CashChart extends React.Component {
     //Dont listen if settings are open
     if (document.activeElement.id != "mainBody") { return }
     if (event.repeat) { return }
+    console.log(this.state.raceData)
+    var cooler= await this.state.db.getCurrentRaceNrDB();
+    console.log(cooler)
     clearTimeout(this.state.timeout);
     if (event.keyCode === 27) {
       this.state.raceData = await this.state.db.getRaceDataDB(this.state.raceData);
@@ -219,9 +260,15 @@ class CashChart extends React.Component {
     } else if (event.keyCode === 88 && this.state.raceData[this.state.raceToManipulate].doubleKart >= 0 && this.state.raceData[this.state.raceToManipulate].doubleKart < 2) {
       this.state.raceToManipulateDoubleKarts++
       this.editRaceData(this.state.raceToManipulate, this.state.raceData, "double", "add");
+    }else if (event.keyCode === 38 && this.state.currentRaceNr < this.state.raceData.length) {
+      this.setState({currentRaceNr:(this.state.currentRaceNr+1)})
+      await this.editCurrentRaceNr(this.state.currentRaceNr);
+    }else if (event.keyCode === 40 && this.state.currentRaceNr > 0) {
+      this.setState({currentRaceNr:(this.state.currentRaceNr-1)})
+      await this.editCurrentRaceNr(this.state.currentRaceNr);
     };
-
-    this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart);
+    console.log("CurrentRaceNr =" + this.state.currentRaceNr)
+    this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart, this.state.raceData[this.state.currentRaceNr]);
     const self = this;
     if (this.state.timeout) {
       clearTimeout(this.state.timeout);
@@ -247,10 +294,12 @@ class CashChart extends React.Component {
 
   };
   async componentDidMount() {
+    const self = this;
     await this.state.db.db.sync(this.state.remoteDB).on('complete', function () {
 
     }).on('error', function (err) {
-      alert("Datan kunde inte synkas på upstart, datan fortsätt lagras lokalt: " + err)
+      alert("Datan kunde inte synkas på upstart, datan fortsätt lagras lokalt: " + err);
+      self.props.setSyncStatus(false, JSON.stringify(err))
     });
     document.addEventListener("keydown", this.keyEventFunction, false);
     this.state.raceData = await this.state.db.getRaceDataDB(this.state.raceData);
@@ -270,18 +319,11 @@ class CashChart extends React.Component {
         <Chart
           options={this.state.options}
           series={this.state.series}
+          annotations={this.state.annotations}
           type="bar"
           width="100%"
-          height="90%"
+          height="100%"
         />
-
-        <Col className="text-center"></Col>
-        <Col className="text-center">
-          <Button className="justify-content-md-center" variant="primary" onClick={() => { MyLib.printTodayData(this.state.raceData) }}>
-            Skriv ut dagens racedata
-          </Button>
-        </Col>
-        <Col className="text-center"></Col>
 
       </div>
     );
