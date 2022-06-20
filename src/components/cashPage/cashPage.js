@@ -75,16 +75,21 @@ class AnalyticsPage extends React.Component {
   afterSubmission(event) {
     event.preventDefault();
     let form = event.target
-    
-    let formData = {diffLargeKarts:form.inputLargeKarts.value,
-       diffSmallKarts:form.inputSmallKarts.value,
-        diffDoubleKarts:form.inputDoubleKarts.value,
-        deleteMode:form.isDeleteMode.checked,
-        affectedRace:this.state.CurrentRaceToManipulateOutput||0};
+
+    let formData = {
+      diffLargeKarts: form.inputLargeKarts.value,
+      diffSmallKarts: form.inputSmallKarts.value,
+      diffDoubleKarts: form.inputDoubleKarts.value,
+      deleteMode: form.isDeleteMode.checked,
+      affectedRace: this.state.CurrentRaceToManipulateOutput || 0
+    };
 
     event.target.reset();
     this.child.current.editRaceDataCaller(formData);
-   
+
+  }
+  changeRaceToManipulateParent(moveToNextRace){
+    this.child.current.changeRaceToManipulate(moveToNextRace);
   }
 
 
@@ -115,10 +120,12 @@ class AnalyticsPage extends React.Component {
           }
         </Row>
         <Row className="justify-content-md-center">
+          <Col className="text-center"><Button variant="secondary" onClick={() => { this.changeRaceToManipulateParent(false)}}>Förregående</Button></Col>
           <Col className="text-center" id="largeKartOutput" style={{ fontSize: "7vh" }}>Race: {this.state.CurrentRaceToManipulateOutput + 1 || 1}</Col>
+          <Col className="text-center"><Button variant="secondary" onClick={() => { this.changeRaceToManipulateParent(true)}}>Nästa race</Button></Col>
         </Row>
         <Row className="justify-content-md-center">
-          <Form onSubmit = {this.afterSubmission}>
+          <Form onSubmit={this.afterSubmission}>
             <Row>
 
               <InputGroup className="mb-3">
@@ -176,7 +183,7 @@ class AnalyticsPage extends React.Component {
               <InputGroup className="mb-3">
                 <Col md>
                   <Form.Check
-                  
+
                     type="switch"
                     id="custom-switch"
                     label="Delete mode (Tar bort specificerat antal)"
@@ -189,7 +196,7 @@ class AnalyticsPage extends React.Component {
                 </Col>
 
                 <Col md>
-                <Button type="reset" value="Reset" variant="danger">Ta bort inputs</Button>
+                  <Button type="reset" value="Reset" variant="danger">Ta bort inputs</Button>
                 </Col>
 
               </InputGroup>

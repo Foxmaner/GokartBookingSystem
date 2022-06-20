@@ -257,6 +257,32 @@ class CashChart extends React.Component {
     }
   }
 
+  async changeRaceToManipulate(isNext){
+    if(isNext){
+      this.state.raceToManipulate++
+      if (typeof this.state.raceData[this.state.raceToManipulate] == 'undefined') {
+        this.state.raceData[this.state.raceToManipulate] = { "raceID": "24", "raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }
+      }
+    }else{
+      this.state.raceToManipulate--
+      if (typeof this.state.raceData[this.state.raceToManipulate] == 'undefined') {
+        this.state.raceData[this.state.raceToManipulate] = { "raceID": "24", "raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }
+      }
+    }
+    this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart, this.state.raceData[this.state.currentRaceNr]);
+    const self = this;
+    self.updateChart(MyLib.createDatasets(self.state.raceData, self.state.raceToManipulate));
+        self.state.db.updateRace(self.state.raceData);
+
+        await self.state.db.db.sync(self.state.remoteDB).on('complete', function () {
+          console.log("Synced")
+          self.props.setSyncStatus(true, "")
+        }).on('error', function (err) {
+          console.log("Not synced: " + err)
+          self.props.setSyncStatus(false, JSON.stringify(err))
+        });
+  }
+
 
   async keyEventFunction(event) {
     //Dont listen if settings are open
