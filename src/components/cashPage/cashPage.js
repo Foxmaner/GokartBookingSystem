@@ -29,6 +29,8 @@ class AnalyticsPage extends React.Component {
     }
     this.setSyncStatus = this.setSyncStatus.bind(this);
     this.afterSubmission = this.afterSubmission.bind(this);
+
+    this.child = React.createRef();
   };
 
 
@@ -77,9 +79,11 @@ class AnalyticsPage extends React.Component {
     let formData = {diffLargeKarts:form.inputLargeKarts.value,
        diffSmallKarts:form.inputSmallKarts.value,
         diffDoubleKarts:form.inputDoubleKarts.value,
-        deleteMode:form.isDeleteMode.checked};
+        deleteMode:form.isDeleteMode.checked,
+        affectedRace:this.state.CurrentRaceToManipulateOutput||0};
 
     event.target.reset();
+    this.child.current.editRaceDataCaller(formData);
    
   }
 
@@ -201,7 +205,7 @@ class AnalyticsPage extends React.Component {
           </Col>
           <Col className="d-grid" md="8">
 
-            <CashChart largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList} CurrentRaceToManipulateOutput={this.CurrentRaceToManipulateOutput} setSyncStatus={this.setSyncStatus} raceDatabase={this.state.raceDB} />
+            <CashChart ref={this.child} largeKarts={largeKartsList} smalKarts={smallKartsList} doubleKarts={doubleKartsList} xAxis={xAxisList} CurrentRaceToManipulateOutput={this.CurrentRaceToManipulateOutput} setSyncStatus={this.setSyncStatus} raceDatabase={this.state.raceDB} />
 
           </Col>
           <Col md="2">

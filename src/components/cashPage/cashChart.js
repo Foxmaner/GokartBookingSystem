@@ -136,7 +136,6 @@ class CashChart extends React.Component {
 
 
     this.keyEventFunction = this.keyEventFunction.bind(this);
-
   }
 
 
@@ -200,8 +199,45 @@ class CashChart extends React.Component {
   async editCurrentRaceNr(newCurrentRaceNr) {
     await this.state.db.setCurrentRaceNrDB(newCurrentRaceNr);
   }
+  async editRaceDataCaller(object) {
+    console.log("editRaceDataCaller!")
+    console.log(object);
+    if (object.deleteMode) {
+      this.state.raceData[object.affectedRace].largeKart = (parseInt(this.state.raceData[object.affectedRace].largeKart) - parseInt(object.diffLargeKarts));
+      this.state.raceData[object.affectedRace].smallKart = (parseInt(this.state.raceData[object.affectedRace].smallKart) - parseInt(object.diffSmallKarts));
+      this.state.raceData[object.affectedRace].doubleKart = (parseInt(this.state.raceData[object.affectedRace].doubleKart) - parseInt(object.diffDoubleKarts));
 
-  editRaceData(raceToManipulate, raceData, kartType, action) {
+      if(this.state.raceData[object.affectedRace].largeKart<0){
+        this.state.raceData[object.affectedRace].largeKart=0
+      }
+      if(this.state.raceData[object.affectedRace].smallKart<0){
+        this.state.raceData[object.affectedRace].smallKart=0
+      }
+      if(this.state.raceData[object.affectedRace].doubleKart<0){
+        this.state.raceData[object.affectedRace].doubleKart=0
+      }
+
+
+    } else {
+      console.log("not delete")
+      this.state.raceData[object.affectedRace].largeKart = (parseInt(this.state.raceData[object.affectedRace].largeKart) + parseInt(object.diffLargeKarts));
+      this.state.raceData[object.affectedRace].smallKart = (parseInt(this.state.raceData[object.affectedRace].smallKart) + parseInt(object.diffSmallKarts));
+      this.state.raceData[object.affectedRace].doubleKart = (parseInt(this.state.raceData[object.affectedRace].doubleKart) + parseInt(object.diffDoubleKarts));
+
+    }
+    const self = this;
+    self.updateChart(MyLib.createDatasets(self.state.raceData, self.state.raceToManipulate));
+        self.state.db.updateRace(self.state.raceData);
+
+        await self.state.db.db.sync(self.state.remoteDB).on('complete', function () {
+          console.log("Synced")
+          self.props.setSyncStatus(true, "")
+        }).on('error', function (err) {
+          console.log("Not synced: " + err)
+          self.props.setSyncStatus(false, JSON.stringify(err))
+        });
+  }
+  async editRaceData(raceToManipulate, raceData, kartType, action) {
     if (action == "add") {
       if (kartType == "large") {
         this.state.raceData[raceToManipulate].largeKart = '' + (parseInt(this.state.raceData[raceToManipulate].largeKart) + 1);
