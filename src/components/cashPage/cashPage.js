@@ -130,7 +130,7 @@ class AnalyticsPage extends React.Component {
 
               <InputGroup className="mb-3">
                 <Col md>
-                  <FloatingLabel controlId="floatingSelect" label="Antal stora">
+                  <FloatingLabel controlId="floatingSelect" label="Antal Stora">
                     <Form.Select aria-label="Antal Stora" name="inputLargeKarts" ref="inputLargeKarts">
                       <option value="0">0</option>
                       <option value="1">1</option>
@@ -148,7 +148,7 @@ class AnalyticsPage extends React.Component {
                 </Col>
 
                 <Col md>
-                  <FloatingLabel controlId="floatingSelect" label="Antal stora">
+                  <FloatingLabel controlId="floatingSelect" label="Antal Små">
                     <Form.Select aria-label="Antal Små" name="inputSmallKarts" ref="inputSmallKarts">
                       <option value="0">0</option>
                       <option value="1">1</option>
@@ -162,7 +162,7 @@ class AnalyticsPage extends React.Component {
                 </Col>
 
                 <Col md>
-                  <FloatingLabel controlId="floatingSelect" label="Antal stora">
+                  <FloatingLabel controlId="floatingSelect" label="Antal Dubbla">
                     <Form.Select aria-label="Antal Dubbla" name="inputDoubleKarts" ref="inputDoubleKarts">
                       <option value="0">0</option>
                       <option value="1">1</option>
@@ -196,7 +196,7 @@ class AnalyticsPage extends React.Component {
                 </Col>
 
                 <Col md>
-                  <Button type="reset" value="Reset" variant="danger">Ta bort inputs</Button>
+                  <Button type="reset" value="Reset" variant="warning">Ta bort inputs</Button>
                 </Col>
 
               </InputGroup>

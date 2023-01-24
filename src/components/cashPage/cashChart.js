@@ -264,9 +264,11 @@ class CashChart extends React.Component {
         this.state.raceData[this.state.raceToManipulate] = { "raceID": "24", "raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }
       }
     }else{
-      this.state.raceToManipulate--
-      if (typeof this.state.raceData[this.state.raceToManipulate] == 'undefined') {
-        this.state.raceData[this.state.raceToManipulate] = { "raceID": "24", "raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }
+      if(this.state.raceToManipulate>=1){
+        this.state.raceToManipulate--
+        if (typeof this.state.raceData[this.state.raceToManipulate] == 'undefined') {
+          this.state.raceData[this.state.raceToManipulate] = { "raceID": "24", "raceNr": "" + (this.state.raceToManipulate + 1), "largeKart": "0", "smallKart": "0", "doubleKart": "0", "raceDate": "2021-11-16 11:37:36" }
+        }
       }
     }
     this.props.CurrentRaceToManipulateOutput(this.state.raceToManipulate, this.state.raceData[this.state.raceToManipulate].largeKart, this.state.raceData[this.state.raceToManipulate].smallKart, this.state.raceData[this.state.raceToManipulate].doubleKart, this.state.raceData[this.state.currentRaceNr]);
